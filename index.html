@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Shelf</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#090b10;
+  color:white;
+  min-height:100vh;
+  overflow:hidden;
+}
+
+/* Demo Home Screen */
+.home{
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    radial-gradient(circle at 20% 20%,#273b69 0,transparent 35%),
+    radial-gradient(circle at 80% 80%,#4b213b 0,transparent 35%),
+    #090b10;
+}
+
+.home h1{
+  font-size:32px;
+}
+
+.home p{
+  margin-top:10px;
+  opacity:.6;
+}
+
+/* LEFT EDGE HANDLE */
+.edge-handle{
+  position:fixed;
+  left:0;
+  top:40%;
+  width:7px;
+  height:110px;
+  border-radius:0 10px 10px 0;
+  background:rgba(255,255,255,.55);
+  z-index:100;
+  box-shadow:0 0 18px rgba(255,255,255,.25);
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(5px);
+  opacity:0;
+  pointer-events:none;
+  transition:.35s;
+  z-index:10;
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* SHELF */
+.shelf{
+  position:fixed;
+  left:0;
+  top:0;
+  width:min(410px,94vw);
+  height:100vh;
+  padding:22px 16px 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30,34,45,.92),
+      rgba(12,14,20,.94)
+    );
+
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+
+  border-right:1px solid rgba(255,255,255,.1);
+  box-shadow:15px 0 50px rgba(0,0,0,.5);
+
+  transform:translateX(-105%);
+  transition:transform .38s cubic-bezier(.2,.8,.2,1);
+
+  overflow-y:auto;
+  z-index:20;
+}
+
+.shelf.open{
+  transform:translateX(0);
+}
+
+.shelf::-webkit-scrollbar{
+  width:0;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.title{
+  font-size:25px;
+  font-weight:700;
+}
+
+.close{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.1);
+  color:white;
+  font-size:22px;
+}
+
+/* WIDGET */
+.widget{
+  position:relative;
+  margin-bottom:14px;
+  padding:17px;
+  border-radius:22px;
+
+  background:rgba(255,255,255,.075);
+  border:1px solid rgba(255,255,255,.09);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 10px 30px rgba(0,0,0,.15);
+
+  transition:.2s;
+}
+
+.widget:active{
+  transform:scale(.98);
+}
+
+.widget-title{
+  font-size:13px;
+  opacity:.55;
+  margin-bottom:8px;
+}
+
+/* CLOCK */
+.clock{
+  font-size:45px;
+  font-weight:600;
+  letter-spacing:-2px;
+}
+
+.date{
+  margin-top:3px;
+  opacity:.65;
+}
+
+/* WEATHER */
+.weather-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.temperature{
+  font-size:38px;
+  font-weight:600;
+}
+
+.weather-icon{
+  font-size:48px;
+}
+
+.weather-info{
+  opacity:.7;
+  font-size:13px;
+}
+
+/* APPS */
+.apps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.app{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
+  opacity:.9;
+}
+
+.app-icon{
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  font-size:23px;
+  background:rgba(255,255,255,.1);
+}
+
+/* NOTES */
+textarea{
+  width:100%;
+  height:90px;
+  resize:none;
+  border:0;
+  outline:none;
+  border-radius:14px;
+  padding:12px;
+
+  color:white;
+  background:rgba(0,0,0,.22);
+  font-family:inherit;
+}
+
+textarea::placeholder{
+  color:rgba(255,255,255,.4);
+}
+
+/* MUSIC */
+.music-row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.album{
+  width:58px;
+  height:58px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#7b61ff,#e8488a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.song{
+  flex:1;
+}
+
+.song b{
+  display:block;
+  font-size:14px;
+}
+
+.song span{
+  opacity:.55;
+  font-size:12px;
+}
+
+.play{
+  width:44px;
+  height:44px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  color:#111;
+  font-size:18px;
+}
+
+/* QUICK ACTIONS */
+.quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+
+.quick button{
+  border:0;
+  border-radius:15px;
+  padding:13px 4px;
+  color:white;
+  background:rgba(255,255,255,.08);
+  font-size:18px;
+}
+
+.quick small{
+  display:block;
+  margin-top:4px;
+  font-size:9px;
+  opacity:.55;
+}
+
+/* BATTERY */
+.battery-line{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+}
+
+.battery-bar{
+  height:8px;
+  background:rgba(255,255,255,.1);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.battery-fill{
+  width:75%;
+  height:100%;
+  border-radius:10px;
+  background:white;
+}
+
+/* ADD */
+.add-widget{
+  width:100%;
+  border:1px dashed rgba(255,255,255,.2);
+  background:transparent;
+  color:white;
+  padding:15px;
+  border-radius:18px;
+  font-size:14px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,20px);
+  background:rgba(20,20,25,.9);
+  padding:11px 18px;
+  border-radius:20px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:100;
+  font-size:13px;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* DESKTOP */
+@media(min-width:700px){
+  .shelf{
+    width:420px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="home">
+  <div>
+    <h1>Home Screen</h1>
+    <p>Left edge से swipe करें → Shelf</p>
+  </div>
+</div>
+
+<div class="edge-handle"></div>
+<div class="overlay" id="overlay"></div>
+
+<aside class="shelf" id="shelf">
+
+  <div class="header">
+    <div class="title">Shelf</div>
+    <button class="close" onclick="closeShelf()">×</button>
+  </div>
+
+  <!-- CLOCK -->
+  <section class="widget">
+    <div class="widget-title">TIME</div>
+    <div class="clock" id="clock">00:00</div>
+    <div class="date" id="date">Loading...</div>
+  </section>
+
+  <!-- WEATHER -->
+  <section class="widget">
+    <div class="widget-title">WEATHER</div>
+
+    <div class="weather-row">
+      <div>
+        <div class="temperature">28°</div>
+        <div class="weather-info">Clear sky</div>
+      </div>
+
+      <div class="weather-icon">☀️</div>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section class="widget">
+    <div class="widget-title">APPS & SHORTCUTS</div>
+
+    <div class="apps">
+
+      <div class="app" onclick="toast('Phone')">
+        <div class="app-icon">📞</div>
+        Phone
+      </div>
+
+      <div class="app" onclick="toast('Messages')">
+        <div class="app-icon">💬</div>
+        Messages
+      </div>
+
+      <div class="app" onclick="toast('Camera')">
+        <div class="app-icon">📷</div>
+        Camera
+      </div>
+
+      <div class="app" onclick="toast('Gallery')">
+        <div class="app-icon">🖼️</div>
+        Gallery
+      </div>
+
+      <div class="app" onclick="toast('Browser')">
+        <div class="app-icon">🌐</div>
+        Browser
+      </div>
+
+      <div class="app" onclick="toast('Files')">
+        <div class="app-icon">📁</div>
+        Files
+      </div>
+
+      <div class="app" onclick="toast('Settings')">
+        <div class="app-icon">⚙️</div>
+        Settings
+      </div>
+
+      <div class="app" onclick="toast('Calculator')">
+        <div class="app-icon">🧮</div>
+        Calculator
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section class="widget">
+    <div class="widget-title">NOTES</div>
+
+    <textarea
+      id="notes"
+      placeholder="कुछ लिखें..."
+    ></textarea>
+  </section>
+
+  <!-- MUSIC -->
+  <section class="widget">
+    <div class="widget-title">MUSIC</div>
+
+    <div class="music-row">
+
+      <div class="album">♪</div>
+
+      <div class="song">
+        <b>My Music</b>
+        <span>Ready to play</span>
+      </div>
+
+      <button class="play" id="playBtn" onclick="toggleMusic()">
+        ▶
+      </button>
+
+    </div>
+  </section>
+
+  <!-- QUICK ACTIONS -->
+  <section class="widget">
+
+    <div class="widget-title">QUICK ACTIONS</div>
+
+    <div class="quick">
+
+      <button onclick="toggleAction(this)">
+        🔦
+        <small>Flash</small>
+      </button>
+
+      <button onclick="toggleAction(this)">
+        🔕
+        <small>Silent</small>
+      </button>
+
+      <button onclick="toggleAction(this)">
+        📶
+        <small>Wi-Fi</small>
+      </button>
+
+      <button onclick="toggleAction(this)">
+        🔵
+        <small>BT</small>
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- BATTERY -->
+  <section class="widget">
+
+    <div class="widget-title">BATTERY</div>
+
+    <div class="battery-line">
+      <span>Battery</span>
+      <b id="batteryText">75%</b>
+    </div>
+
+    <div class="battery-bar">
+      <div class="battery-fill" id="batteryFill"></div>
+    </div>
+
+  </section>
+
+  <button class="add-widget" onclick="toast('Widget system ready')">
+    ＋ Add widget
+  </button>
+
+</aside>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* =========================
+   SHELF OPEN / CLOSE
+========================= */
+
+const shelf = document.getElementById("shelf");
+const overlay = document.getElementById("overlay");
+
+function openShelf(){
+  shelf.classList.add("open");
+  overlay.classList.add("show");
+}
+
+function closeShelf(){
+  shelf.classList.remove("open");
+  overlay.classList.remove("show");
+}
+
+overlay.addEventListener("click", closeShelf);
+
+
+/* =========================
+   EDGE SWIPE
+========================= */
+
+let startX = 0;
+let startY = 0;
+let tracking = false;
+
+document.addEventListener("touchstart", function(e){
+
+  const touch = e.touches[0];
+
+  startX = touch.clientX;
+  startY = touch.clientY;
+
+  if(startX < 35 || shelf.classList.contains("open")){
+    tracking = true;
+  }
+
+},{passive:true});
+
+
+document.addEventListener("touchend", function(e){
+
+  if(!tracking) return;
+
+  const touch = e.changedTouches[0];
+
+  const dx = touch.clientX - startX;
+  const dy = touch.clientY - startY;
+
+  tracking = false;
+
+  if(Math.abs(dx) < Math.abs(dy)) return;
+
+  /* LEFT EDGE → RIGHT */
+  if(!shelf.classList.contains("open") &&
+     startX < 35 &&
+     dx > 65){
+
+    openShelf();
+  }
+
+  /* OPEN SHELF → RIGHT TO LEFT */
+  if(shelf.classList.contains("open") &&
+     dx < -65){
+
+    closeShelf();
+  }
+
+},{passive:true});
+
+
+/* =========================
+   CLOCK
+========================= */
+
+function updateClock(){
+
+  const now = new Date();
+
+  let h = now.getHours();
+  let m = now.getMinutes();
+
+  let ampm = h >= 12 ? "PM" : "AM";
+
+  h = h % 12;
+  h = h || 12;
+
+  document.getElementById("clock").textContent =
+    String(h).padStart(2,"0") +
+    ":" +
+    String(m).padStart(2,"0") +
+    " " +
+    ampm;
+
+  document.getElementById("date").textContent =
+    now.toLocaleDateString("en-IN",{
+      weekday:"long",
+      day:"numeric",
+      month:"long"
+    });
+}
+
+updateClock();
+setInterval(updateClock,1000);
+
+
+/* =========================
+   NOTES STORAGE
+========================= */
+
+const notes = document.getElementById("notes");
+
+notes.value = localStorage.getItem("shelfNotes") || "";
+
+notes.addEventListener("input",()=>{
+  localStorage.setItem("shelfNotes",notes.value);
+});
+
+
+/* =========================
+   BATTERY
+========================= */
+
+if(navigator.getBattery){
+
+  navigator.getBattery().then(battery=>{
+
+    function updateBattery(){
+
+      const level =
+        Math.round(battery.level * 100);
+
+      document.getElementById("batteryText")
+        .textContent = level + "%";
+
+      document.getElementById("batteryFill")
+        .style.width = level + "%";
+    }
+
+    updateBattery();
+
+    battery.addEventListener(
+      "levelchange",
+      updateBattery
+    );
+
+  });
+
+}
+
+
+/* =========================
+   MUSIC
+========================= */
+
+let playing = false;
+
+function toggleMusic(){
+
+  playing = !playing;
+
+  const btn =
+    document.getElementById("playBtn");
+
+  btn.textContent =
+    playing ? "Ⅱ" : "▶";
+
+  toast(
+    playing
+    ? "Music playing"
+    : "Music paused"
+  );
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+function toggleAction(button){
+
+  button.classList.toggle("active");
+
+  toast(
+    button.classList.contains("active")
+    ? "Enabled"
+    : "Disabled"
+  );
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+let toastTimer;
+
+function toast(message){
+
+  const t =
+    document.getElementById("toast");
+
+  t.textContent = message;
+  t.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+    t.classList.remove("show");
+  },1500);
+}
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key === "Escape"){
+    closeShelf();
+  }
+
+});
+
+</script>
+
+</body>
+  </html>
