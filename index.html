@@ -78,7 +78,6 @@
   <!-- ==================== VIEW 1: LANDING PAGE ==================== -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
 
-    <!-- NAVBAR -->
     <header class="glass-nav sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         
@@ -93,7 +92,6 @@
           <span class="text-xl font-bold tracking-tight text-white">NEXUS<span class="text-brand-400">.</span></span>
         </a>
 
-        <!-- Desktop Navigation -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
           <a href="#solutions" class="hover:text-white transition">Solutions</a>
           <a href="#infrastructure" class="hover:text-white transition">Infrastructure</a>
@@ -111,7 +109,6 @@
       </div>
     </header>
 
-    <!-- HERO SECTION -->
     <main class="flex-grow">
       <section class="max-w-7xl mx-auto px-6 pt-24 pb-20 text-center flex flex-col items-center">
         
@@ -140,7 +137,6 @@
           </a>
         </div>
 
-        <!-- Stats -->
         <div id="infrastructure" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl mt-20 pt-10 border-t border-slate-800 text-left">
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Uptime SLA</span>
@@ -165,7 +161,6 @@
         </div>
       </section>
 
-      <!-- SOLUTIONS -->
       <section id="solutions" class="max-w-7xl mx-auto px-6 py-20 border-t border-slate-800/60">
         <div class="text-center max-w-2xl mx-auto mb-14">
           <h2 class="text-xs font-mono uppercase tracking-widest text-brand-400 mb-3">Enterprise Core</h2>
@@ -205,7 +200,6 @@
         </div>
       </section>
 
-      <!-- CONTACT SECTION -->
       <section id="contact" class="max-w-3xl mx-auto px-6 py-20">
         <div class="glass-card p-6 md:p-10 rounded-3xl border border-slate-800">
           <div class="text-center mb-6">
@@ -245,7 +239,6 @@
       </section>
     </main>
 
-    <!-- FOOTER -->
     <footer class="border-t border-slate-800/80 py-10 glass-nav relative z-20">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs sm:text-sm text-slate-400 font-mono">
         <div>
@@ -285,7 +278,6 @@
 
       <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan">
         
-        <!-- Toggle Tabs -->
         <div class="flex border-b border-slate-800 mb-6 font-mono text-xs">
           <button id="tab-login" onclick="toggleAuthMode('login')" class="w-1/2 pb-3 font-semibold text-brand-400 border-b-2 border-brand-400 transition">
             Sign In
@@ -297,7 +289,6 @@
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
-        <!-- Login Form -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID</label>
@@ -313,7 +304,6 @@
           </button>
         </form>
 
-        <!-- Sign Up Form -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-4 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
@@ -354,7 +344,10 @@
             NX
           </div>
           <div>
-            <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
+              <span id="role-badge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-950 text-cyan-400 border border-cyan-500/30">CLIENT</span>
+            </div>
             <span class="block text-[10px] font-mono text-emerald-400">● LIVE CLOUD CONNECTED</span>
           </div>
         </div>
@@ -373,6 +366,7 @@
 
     <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
       
+      <!-- Metrics Overview -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
           <p class="text-xs font-mono text-slate-500 uppercase">Database Link</p>
@@ -380,9 +374,9 @@
           <p class="text-xs text-slate-400 mt-1">Status: Active</p>
         </div>
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <p class="text-xs font-mono text-slate-500 uppercase">Allocated Bandwidth</p>
-          <p class="text-xl font-bold text-cyan-400 mt-1">10 Gbps</p>
-          <p class="text-xs text-slate-400 mt-1">Dedicated Line</p>
+          <p class="text-xs font-mono text-slate-500 uppercase">Average Progress</p>
+          <p id="avg-progress" class="text-xl font-bold text-cyan-400 mt-1">0%</p>
+          <p class="text-xs text-slate-400 mt-1">Across all workloads</p>
         </div>
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
           <p class="text-xs font-mono text-slate-500 uppercase">Active Workloads</p>
@@ -391,34 +385,84 @@
         </div>
       </div>
 
+      <!-- Project Manager Section -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
-        <h3 class="text-base font-bold text-white flex items-center gap-2">
-          <span>🚀</span> Deploy New Workload / Project
+        <h3 class="text-base font-bold text-white flex items-center justify-between">
+          <span class="flex items-center gap-2">🚀 Deploy New Workload / Project</span>
+          <span id="admin-notice" class="hidden text-xs font-mono text-amber-400 bg-amber-950/50 px-2.5 py-1 rounded-md border border-amber-500/30">★ Admin Mode: Global Override</span>
         </h3>
         
-        <form onsubmit="handleCreateWorkload(event)" class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-          <input type="text" id="workload-name" required placeholder="Project Name (e.g. LLM Inference Node)" class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
+        <form onsubmit="handleCreateWorkload(event)" class="mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3">
+          <input type="text" id="workload-name" required placeholder="Project Name (e.g. Neural Pipeline)" class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
           
           <select id="workload-status" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:border-brand-500 focus:outline-none">
             <option value="Active">Active</option>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
           </select>
+
+          <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1">
+            <label class="text-[10px] font-mono text-slate-400">Prog:</label>
+            <input type="range" id="workload-progress" min="0" max="100" value="25" class="w-full accent-cyan-400 cursor-pointer" oninput="document.getElementById('prog-val').innerText = this.value + '%'">
+            <span id="prog-val" class="text-xs font-mono font-bold text-cyan-400 w-9">25%</span>
+          </div>
           
-          <input type="text" id="workload-desc" placeholder="Details or instance spec..." class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
+          <input type="text" id="workload-desc" placeholder="Details or instance spec..." class="sm:col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
           
           <button type="submit" class="py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">
             + Add Project
           </button>
         </form>
 
+        <!-- Project List View -->
         <div class="mt-8 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Your Workloads</span>
             <span id="workload-count" class="text-xs font-mono text-cyan-400">0 Items</span>
           </div>
 
-          <div id="workload-list" class="space-y-3 pt-2">
+          <div id="workload-list" class="space-y-3 pt-2"></div>
+        </div>
+      </div>
+
+      <!-- Support Tickets Section -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-1">
+          <h4 class="text-sm font-bold text-white flex items-center gap-2 mb-3">
+            <span>🎫</span> Open Support Ticket
+          </h4>
+          <p class="text-xs text-slate-400 mb-4">Direct telemetry dispatch straight to Google Sheets (Sheet2).</p>
+          
+          <form onsubmit="handleSupportTicket(event)" class="space-y-3">
+            <div>
+              <input type="text" id="ticket-subject" required placeholder="Subject (e.g. Bandwidth limit)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none">
+            </div>
+            <div>
+              <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-300 focus:border-brand-500 focus:outline-none">
+                <option value="Normal">Priority: Normal</option>
+                <option value="High">Priority: High (Urgent)</option>
+                <option value="Critical">Priority: Critical SLA</option>
+              </select>
+            </div>
+            <div>
+              <textarea id="ticket-msg" rows="3" required placeholder="Describe issue..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"></textarea>
+            </div>
+            <button type="submit" id="ticket-btn" class="w-full py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">
+              Dispatch Ticket
+            </button>
+            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged to Sheet2!</div>
+          </form>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-2">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>📋</span> Dispatched Tickets
+            </h4>
+            <span id="ticket-count" class="text-xs font-mono text-slate-400">0 Active</span>
+          </div>
+          <div id="tickets-list" class="space-y-2 max-h-56 overflow-y-auto">
+            <div class="text-xs font-mono text-slate-500 text-center py-8">No open support tickets.</div>
           </div>
         </div>
       </div>
@@ -444,13 +488,14 @@
   </div>
 
 
-  <!-- ==================== LIVE SCRIPTS WITH NEW SHEETS URL ==================== -->
+  <!-- ==================== SCRIPT ENGINE (WITH LATEST LIVE URL) ==================== -->
   <script>
-    // CLEANED UNIVERSAL PUBLIC ENDPOINT
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwU_j2ZSd8KoHU_WZk0xza9vU8UW8sRVXBL3qRmSXJexPgOzqYBTN_95YzGlNUEVkl--g/exec";
+    // LATEST DEPLOYED APPS SCRIPT URL
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8-MZgtJxzqWqrsDWniuOiJ3VOaEutTq2WC29-G6RVsXL1zVbRREUfCE-NMOqE7OnG8w/exec";
     
     const SESSION_KEY = "nexus_current_session";
     const PROJECTS_PREFIX = "nexus_projects_";
+    const TICKETS_PREFIX = "nexus_tickets_";
 
     window.addEventListener("DOMContentLoaded", () => {
       const activeSession = JSON.parse(localStorage.getItem(SESSION_KEY));
@@ -474,6 +519,10 @@
       hideAuthAlert();
     }
 
+    function isAdmin(user) {
+      return user && (user.id.toLowerCase() === "admin");
+    }
+
     function showDashboardView(user) {
       document.getElementById('landing-view').classList.add('hidden');
       document.getElementById('auth-view').classList.add('hidden');
@@ -482,7 +531,20 @@
       document.getElementById('portal-user-name').innerText = user.name;
       document.getElementById('portal-user-id').innerText = "User ID: " + user.id;
 
+      const roleBadge = document.getElementById('role-badge');
+      const adminNotice = document.getElementById('admin-notice');
+      if (isAdmin(user)) {
+        roleBadge.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-400 border border-amber-500/40";
+        roleBadge.innerText = "ADMIN / ROOT";
+        adminNotice.classList.remove('hidden');
+      } else {
+        roleBadge.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-sky-950 text-cyan-400 border border-cyan-500/30";
+        roleBadge.innerText = "CLIENT";
+        adminNotice.classList.add('hidden');
+      }
+
       loadUserWorkloads(user.id);
+      loadUserTickets(user.id);
     }
 
     function toggleAuthMode(mode) {
@@ -512,7 +574,6 @@
       document.getElementById('auth-alert').classList.add('hidden');
     }
 
-    // LOGIN VIA GOOGLE SHEETS
     async function handleAuthLogin(e) {
       e.preventDefault();
       const enteredId = document.getElementById('auth-login-id').value.trim();
@@ -549,7 +610,6 @@
       }
     }
 
-    // SIGNUP TO GOOGLE SHEETS
     async function handleAuthSignup(e) {
       e.preventDefault();
       const name = document.getElementById('auth-reg-name').value.trim();
@@ -593,6 +653,7 @@
       showLandingView();
     }
 
+    // Projects Management
     function loadUserWorkloads(userId) {
       const list = JSON.parse(localStorage.getItem(PROJECTS_PREFIX + userId) || "[]");
       renderWorkloads(list);
@@ -603,6 +664,7 @@
       const session = JSON.parse(localStorage.getItem(SESSION_KEY));
       const name = document.getElementById('workload-name').value.trim();
       const status = document.getElementById('workload-status').value;
+      const progress = parseInt(document.getElementById('workload-progress').value) || 0;
       const desc = document.getElementById('workload-desc').value.trim();
 
       const userKey = PROJECTS_PREFIX + session.id;
@@ -612,6 +674,7 @@
         id: Date.now(),
         name,
         status,
+        progress: status === "Completed" ? 100 : progress,
         desc: desc || "Infrastructure instance active.",
         date: new Date().toLocaleDateString()
       });
@@ -621,6 +684,23 @@
 
       document.getElementById('workload-name').value = "";
       document.getElementById('workload-desc').value = "";
+    }
+
+    function updateWorkloadProgress(id, newProgress) {
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+      const userKey = PROJECTS_PREFIX + session.id;
+      let list = JSON.parse(localStorage.getItem(userKey) || "[]");
+
+      list = list.map(item => {
+        if (item.id === id) {
+          item.progress = parseInt(newProgress);
+          if (item.progress === 100) item.status = "Completed";
+        }
+        return item;
+      });
+
+      localStorage.setItem(userKey, JSON.stringify(list));
+      renderWorkloads(list);
     }
 
     function deleteWorkload(id) {
@@ -638,6 +718,10 @@
       document.getElementById('workload-count').innerText = `${list.length} Items`;
       document.getElementById('dashboard-metric-count').innerText = `${list.length} Projects`;
 
+      const totalProg = list.reduce((acc, curr) => acc + (curr.progress || 0), 0);
+      const avg = list.length > 0 ? Math.round(totalProg / list.length) : 0;
+      document.getElementById('avg-progress').innerText = `${avg}%`;
+
       if (list.length === 0) {
         container.innerHTML = `
           <div class="p-6 rounded-xl border border-slate-800 text-center text-slate-500 font-mono text-xs">
@@ -648,26 +732,129 @@
       }
 
       container.innerHTML = list.map(item => `
-        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between gap-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-white">${item.name}</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full ${
-                item.status === 'Active' ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' :
-                item.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-500/30' :
-                'bg-sky-950 text-sky-400 border border-sky-500/30'
-              }">${item.status}</span>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-white">${item.name}</span>
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                  item.status === 'Active' ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' :
+                  item.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-500/30' :
+                  'bg-sky-950 text-sky-400 border border-sky-500/30'
+                }">${item.status}</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1">${item.desc}</p>
             </div>
-            <p class="text-[11px] text-slate-400 mt-1">${item.desc}</p>
-            <p class="text-[9px] font-mono text-slate-500 mt-0.5">Created: ${item.date}</p>
+            <button onclick="deleteWorkload(${item.id})" class="text-xs font-mono text-rose-400 hover:text-rose-300 px-2 py-1">
+              ✕ Delete
+            </button>
           </div>
-          <button onclick="deleteWorkload(${item.id})" class="text-xs font-mono text-rose-400 hover:text-rose-300 px-2 py-1">
-            ✕ Delete
-          </button>
+
+          <div>
+            <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1">
+              <span>Execution Lifecycle:</span>
+              <span class="text-cyan-400 font-bold">${item.progress || 0}%</span>
+            </div>
+            <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-sky-500 to-cyan-400 rounded-full transition-all duration-300" style="width: ${item.progress || 0}%"></div>
+            </div>
+            <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-800/40">
+              <span class="text-[9px] font-mono text-slate-500">Created: ${item.date}</span>
+              <div class="flex items-center gap-1.5 text-[10px] font-mono">
+                <span class="text-slate-500">Adjust:</span>
+                <button onclick="updateWorkloadProgress(${item.id}, Math.max(0, ${(item.progress || 0) - 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">-10%</button>
+                <button onclick="updateWorkloadProgress(${item.id}, Math.min(100, ${(item.progress || 0) + 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">+10%</button>
+              </div>
+            </div>
+          </div>
         </div>
       `).join('');
     }
 
+    // Support Ticket System (Dispatches to Google Sheets)
+    function loadUserTickets(userId) {
+      const tickets = JSON.parse(localStorage.getItem(TICKETS_PREFIX + userId) || "[]");
+      renderTickets(tickets);
+    }
+
+    async function handleSupportTicket(e) {
+      e.preventDefault();
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+      const subject = document.getElementById('ticket-subject').value.trim();
+      const priority = document.getElementById('ticket-priority').value;
+      const message = document.getElementById('ticket-msg').value.trim();
+      const btn = document.getElementById('ticket-btn');
+      const statusBox = document.getElementById('ticket-status');
+
+      btn.disabled = true;
+      btn.innerText = "Logging ticket...";
+
+      const newTicket = {
+        id: "TICK-" + Math.floor(1000 + Math.random() * 9000),
+        subject,
+        priority,
+        message,
+        date: new Date().toLocaleDateString()
+      };
+
+      // Save locally
+      const userKey = TICKETS_PREFIX + session.id;
+      const list = JSON.parse(localStorage.getItem(userKey) || "[]");
+      list.unshift(newTicket);
+      localStorage.setItem(userKey, JSON.stringify(list));
+      renderTickets(list);
+
+      // Save live to Google Sheet (Sheet2)
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "ticket",
+            userId: session.id,
+            subject: subject,
+            priority: priority,
+            message: message
+          })
+        });
+      } catch (err) {
+        console.warn("Sheet ticket logging offline", err);
+      }
+
+      statusBox.classList.remove('hidden');
+      setTimeout(() => statusBox.classList.add('hidden'), 3500);
+
+      document.getElementById('ticket-subject').value = "";
+      document.getElementById('ticket-msg').value = "";
+      btn.disabled = false;
+      btn.innerText = "Dispatch Ticket";
+    }
+
+    function renderTickets(tickets) {
+      const container = document.getElementById('tickets-list');
+      document.getElementById('ticket-count').innerText = `${tickets.length} Active`;
+
+      if (tickets.length === 0) {
+        container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-8">No open support tickets.</div>`;
+        return;
+      }
+
+      container.innerHTML = tickets.map(t => `
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-mono text-cyan-400 font-bold">${t.id}</span>
+              <span class="font-bold text-white">${t.subject}</span>
+              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded ${t.priority === 'Critical' ? 'bg-rose-950 text-rose-400 border border-rose-500/30' : 'bg-slate-800 text-slate-300'}">${t.priority}</span>
+            </div>
+            <p class="text-slate-400 text-[11px] mt-1">${t.message}</p>
+          </div>
+          <span class="text-[10px] font-mono text-slate-500 shrink-0">${t.date}</span>
+        </div>
+      `).join('');
+    }
+
+    // Modal Content
     const legalContent = {
       privacy: {
         title: "Privacy Policy",
@@ -729,6 +916,7 @@
       if (e.key === 'Escape') hideModal();
     });
 
+    // Contact Form
     const form = document.getElementById('contact-form');
     const statusBox = document.getElementById('form-status');
     const formBtn = document.getElementById('form-btn');
@@ -746,6 +934,7 @@
       }, 500);
     });
 
+    // Canvas Mesh
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
