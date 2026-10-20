@@ -41,9 +41,13 @@
     <header class="glass-nav sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <span class="text-xl font-bold tracking-tight text-white">NEXUS<span class="text-brand-400">.</span></span>
-        <button type="button" onclick="showAuthView()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
-          Portal Access
-        </button>
+        <div class="flex items-center gap-4">
+          <button type="button" onclick="openLegalModal('terms')" class="text-xs text-slate-400 hover:text-slate-200 transition">Terms</button>
+          <button type="button" onclick="openLegalModal('privacy')" class="text-xs text-slate-400 hover:text-slate-200 transition">Privacy</button>
+          <button type="button" onclick="showAuthView()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
+            Portal Access
+          </button>
+        </div>
       </div>
     </header>
 
@@ -64,11 +68,25 @@
         </button>
       </div>
     </main>
+
+    <!-- FOOTER WITH LEGAL LINKS -->
+    <footer class="glass-nav py-6 border-t border-slate-800 text-center text-xs text-slate-500">
+      <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <span>© 2026 Nexus Systems Technologies. All rights reserved.</span>
+        <div class="flex gap-4">
+          <button onclick="openLegalModal('terms')" class="hover:underline">Terms of Service</button>
+          <span>•</span>
+          <button onclick="openLegalModal('privacy')" class="hover:underline">Privacy Policy</button>
+          <span>•</span>
+          <button onclick="openLegalModal('sla')" class="hover:underline">Service SLA</button>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <!-- AUTH VIEW -->
   <div id="auth-view" class="hidden relative z-20 flex-grow flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
+    <div class="w-full max-w-md my-8">
       <div class="text-center mb-6">
         <h2 class="text-2xl font-bold tracking-tight text-white">Portal Access Console</h2>
         <p class="text-xs font-mono text-slate-400 mt-1">// CLOUD DATABASE LINKED</p>
@@ -82,6 +100,7 @@
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
+        <!-- LOGIN FORM -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email</label>
@@ -94,6 +113,7 @@
           <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Sign In</button>
         </form>
 
+        <!-- SIGNUP FORM WITH TERMS CHECKBOX -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-3 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
@@ -111,7 +131,16 @@
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
-          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Create Account & Get ID</button>
+
+          <!-- TERMS & CONDITIONS CHECKBOX -->
+          <div class="pt-2 flex items-start gap-2">
+            <input type="checkbox" id="auth-reg-agree" required class="mt-1 accent-cyan-400 rounded cursor-pointer">
+            <label for="auth-reg-agree" class="text-[11px] text-slate-400 leading-snug cursor-pointer">
+              I agree to the <button type="button" onclick="openLegalModal('terms')" class="text-brand-400 underline hover:text-brand-300">Terms of Service</button> and acknowledge the <button type="button" onclick="openLegalModal('privacy')" class="text-brand-400 underline hover:text-brand-300">Privacy Policy</button>.
+            </label>
+          </div>
+
+          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition mt-2">Create Account & Get ID</button>
         </form>
 
         <div class="mt-6 pt-5 border-t border-slate-800 text-center">
@@ -298,6 +327,22 @@
     </div>
   </div>
 
+  <!-- LEGAL (TERMS & PRIVACY) MODAL -->
+  <div id="legal-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card max-w-2xl w-full p-6 sm:p-8 rounded-3xl border border-slate-700 bg-slate-950 max-h-[85vh] flex flex-col">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+        <h3 id="legal-modal-title" class="text-lg font-bold text-white">Terms of Service</h3>
+        <button onclick="closeLegalModal()" class="text-slate-400 hover:text-white font-mono text-xs">✕ CLOSE</button>
+      </div>
+      <div id="legal-modal-content" class="text-xs text-slate-300 space-y-4 overflow-y-auto pr-2 leading-relaxed font-sans">
+        <!-- Content will be injected via JavaScript -->
+      </div>
+      <div class="mt-6 pt-4 border-t border-slate-800 text-right">
+        <button onclick="closeLegalModal()" class="px-5 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">Understood</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // LIVE WORKING BACKEND ENDPOINT
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVIIQIuO9dM8L9M2Q_j-bxhtsmqUMCIwymDfhPGvV97fqtmMTjBAPWtvCeoKwVp6mkTA/exec";
@@ -402,6 +447,13 @@
       const email = document.getElementById('auth-reg-email').value.trim();
       const id = document.getElementById('auth-reg-id').value.trim();
       const pass = document.getElementById('auth-reg-pass').value.trim();
+      const agreed = document.getElementById('auth-reg-agree').checked;
+
+      if (!agreed) {
+        showAuthAlert("Please accept the Terms of Service to create an account.");
+        return;
+      }
+
       const btn = document.getElementById('signup-submit-btn');
       btn.disabled = true; btn.innerText = "Creating...";
 
@@ -423,6 +475,47 @@
     function handleLogout() {
       localStorage.removeItem(SESSION_KEY);
       showLandingView();
+    }
+
+    // ================= LEGAL MODAL CONTENT =================
+    const LEGAL_TEXTS = {
+      terms: {
+        title: "Terms of Service // Nexus Systems",
+        body: `
+          <p><strong>1. Acceptance of Terms:</strong> By accessing or using the Nexus Systems portal, you agree to comply with and be bound by these Terms of Service. If you do not agree, do not access or use the platform.</p>
+          <p><strong>2. User Accounts & Security:</strong> You are responsible for safeguarding the credentials used to access your account. Any activity initiated from your assigned Member ID (NX-ID) is your sole responsibility.</p>
+          <p><strong>3. Acceptable Use:</strong> Users shall not attempt unauthorized access to restricted endpoints, reverse-engineer proprietary algorithms, or deploy unauthorized workloads through cloud sheets.</p>
+          <p><strong>4. Administrative Rights:</strong> Nexus Systems Master Administration reserves the right to suspend or terminate accounts, update project statuses, and resolve service tickets in accordance with operational requirements.</p>
+        `
+      },
+      privacy: {
+        title: "Privacy Policy // Data Protection",
+        body: `
+          <p><strong>1. Data Collection:</strong> We collect personal identifiers including your Full Name, Email Address, and generated Member IDs exclusively for authentication and ticketing services.</p>
+          <p><strong>2. Google Sheets Integration:</strong> Your project data, lifecycle statuses, and support requests are stored on secure Google Cloud Infrastructure managed through encrypted API webhooks.</p>
+          <p><strong>3. Communication:</strong> Ticket alerts, critical support resolutions, and system notifications may be dispatched directly to your registered email address.</p>
+          <p><strong>4. Third-Party Sharing:</strong> We do not sell, rent, or distribute client data to external marketing vendors under any circumstances.</p>
+        `
+      },
+      sla: {
+        title: "Service Level Agreement (SLA)",
+        body: `
+          <p><strong>1. System Availability:</strong> The Nexus Systems portal targets 99.8% uptime backed by Google Cloud App Script servers and GitHub Pages edge network.</p>
+          <p><strong>2. Ticket Response Times:</strong> Critical priority tickets are reviewed by Master Administration within 4 hours. High and Normal tickets receive responses within 24-48 business hours.</p>
+          <p><strong>3. Maintenance:</strong> Routine updates are executed without disrupting active client sessions whenever possible.</p>
+        `
+      }
+    };
+
+    function openLegalModal(type) {
+      const data = LEGAL_TEXTS[type] || LEGAL_TEXTS.terms;
+      document.getElementById('legal-modal-title').innerText = data.title;
+      document.getElementById('legal-modal-content').innerHTML = data.body;
+      document.getElementById('legal-modal').classList.remove('hidden');
+    }
+
+    function closeLegalModal() {
+      document.getElementById('legal-modal').classList.add('hidden');
     }
 
     // ================= ADMIN CONTROLLER =================
