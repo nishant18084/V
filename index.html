@@ -13,12 +13,7 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              400: '#38bdf8',
-              500: '#0ea5e9',
-              600: '#0284c7',
-              dark: '#030712'
-            }
+            brand: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', dark: '#030712' }
           },
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -30,70 +25,25 @@
   </script>
 
   <style>
-    body {
-      background-color: #030712;
-      color: #f3f4f6;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-    .glow-cyan {
-      box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.35);
-    }
-    .glass-nav {
-      background: rgba(3, 7, 18, 0.9);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: all 0.3s ease;
-    }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.35);
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .modal-backdrop {
-      background-color: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-    }
+    body { background-color: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
+    .glow-cyan { box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.35); }
+    .glass-nav { background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
   </style>
 </head>
 <body class="relative selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
 
   <canvas id="neural-canvas"></canvas>
 
-  <!-- ==================== VIEW 1: LANDING PAGE ==================== -->
+  <!-- LANDING PAGE -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
-
     <header class="glass-nav sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#" class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 p-[1.5px] glow-cyan">
-            <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <svg class="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="4 20 4 4 20 20 20 4"></polyline>
-              </svg>
-            </div>
-          </div>
-          <span class="text-xl font-bold tracking-tight text-white">NEXUS<span class="text-brand-400">.</span></span>
-        </a>
-
-        <div class="flex items-center gap-3">
-          <button type="button" onclick="showAuthView()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
-            Client Login
-          </button>
-        </div>
+        <span class="text-xl font-bold tracking-tight text-white">NEXUS<span class="text-brand-400">.</span></span>
+        <button type="button" onclick="showAuthView()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
+          Client Login
+        </button>
       </div>
     </header>
 
@@ -102,77 +52,48 @@
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         Nexus Cloud Database // Active
       </div>
-
-      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
-        Secure Enterprise <br class="hidden sm:block">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-300">
-          Client Workspace.
-        </span>
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
+        Secure Enterprise <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300">Client Workspace</span>
       </h1>
-
       <p class="mt-6 text-slate-400 max-w-2xl text-base sm:text-lg">
-        Manage projects, track live progress, and submit priority support tickets directly through the unified cloud portal.
+        Manage live projects, monitor progress, and receive direct replies to support tickets.
       </p>
-
       <div class="mt-10">
         <button type="button" onclick="showAuthView()" class="px-8 py-4 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm tracking-wide transition shadow-xl shadow-brand-500/25">
           Open Portal Console →
         </button>
       </div>
     </main>
-
-    <footer class="border-t border-slate-800/80 py-8 glass-nav relative z-20 text-center text-xs text-slate-500 font-mono">
-      © 2026 Nexus Systems Technologies Inc.
-    </footer>
   </div>
 
-
-  <!-- ==================== VIEW 2: LOGIN & REGISTER ==================== -->
+  <!-- AUTH VIEW -->
   <div id="auth-view" class="hidden relative z-20 flex-grow flex items-center justify-center p-4">
     <div class="w-full max-w-md">
-      
       <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 p-[1.5px] mx-auto mb-3 glow-cyan">
-          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-            <svg class="w-6 h-6 text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="4 20 4 4 20 20 20 4"></polyline>
-            </svg>
-          </div>
-        </div>
         <h2 class="text-2xl font-bold tracking-tight text-white">Client Access Console</h2>
         <p class="text-xs font-mono text-slate-400 mt-1">// CLOUD DATABASE LINKED</p>
       </div>
 
       <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan">
-        
         <div class="flex border-b border-slate-800 mb-6 font-mono text-xs">
-          <button id="tab-login" onclick="toggleAuthMode('login')" class="w-1/2 pb-3 font-semibold text-brand-400 border-b-2 border-brand-400 transition">
-            Sign In
-          </button>
-          <button id="tab-signup" onclick="toggleAuthMode('signup')" class="w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition">
-            Create Account
-          </button>
+          <button id="tab-login" onclick="toggleAuthMode('login')" class="w-1/2 pb-3 font-semibold text-brand-400 border-b-2 border-brand-400 transition">Sign In</button>
+          <button id="tab-signup" onclick="toggleAuthMode('signup')" class="w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition">Create Account</button>
         </div>
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
-        <!-- Login Form -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email / ID Number</label>
-            <input type="text" id="auth-login-id" required placeholder="e.g. UserID, Email or NX-1001" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="text" id="auth-login-id" required placeholder="UserID, Email or NX-1001" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-login-pass" required placeholder="••••••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
-          
-          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-brand-500/20">
-            Sign In
-          </button>
+          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Sign In</button>
         </form>
 
-        <!-- Sign Up Form -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-3 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
@@ -190,174 +111,136 @@
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
-          
-          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-cyan-400/20">
-            Create Account & Get ID
-          </button>
+          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Create Account & Get ID</button>
         </form>
 
         <div class="mt-6 pt-5 border-t border-slate-800 text-center">
-          <button type="button" onclick="showLandingView()" class="text-xs font-mono text-slate-400 hover:text-white transition">
-            ← Return to Website
-          </button>
+          <button type="button" onclick="showLandingView()" class="text-xs font-mono text-slate-400 hover:text-white transition">← Return to Website</button>
         </div>
-
       </div>
     </div>
   </div>
 
-
-  <!-- ==================== VIEW 3: DASHBOARD ==================== -->
+  <!-- DASHBOARD VIEW -->
   <div id="dashboard-view" class="hidden relative z-20 flex-grow flex flex-col">
-    
     <header class="glass-card border-b border-slate-800 px-6 py-4 sticky top-0 z-30">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 font-bold font-mono">
-            NX
-          </div>
+          <div class="w-9 h-9 rounded-lg bg-brand-500/10 border border-brand-500/30 flex items-center justify-center text-brand-400 font-bold font-mono">NX</div>
           <div>
             <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
-            <span class="block text-[10px] font-mono text-emerald-400">● LIVE DATABASE LINKED</span>
+            <span class="block text-[10px] font-mono text-emerald-400">● GOOGLE SHEETS CLOUD SYNCED</span>
           </div>
         </div>
 
         <div class="flex items-center gap-4">
-          <div class="hidden sm:block text-right">
-            <div class="flex items-center gap-2 justify-end">
-              <span id="portal-user-name" class="text-xs font-bold text-white"></span>
-              <span id="portal-user-tag" class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold"></span>
-            </div>
-            <p id="portal-user-email" class="text-[10px] font-mono text-slate-400"></p>
-          </div>
-          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 hover:border-rose-500/50 text-xs font-mono text-slate-300 transition">
-            Disconnect
+          <button onclick="toggleProfileModal()" class="px-3 py-1.5 rounded-lg border border-slate-700 hover:border-slate-500 text-xs font-mono text-slate-300 transition">
+            ⚙ Profile & Password
           </button>
+          <div class="hidden sm:block text-right">
+            <span id="portal-user-name" class="text-xs font-bold text-white"></span>
+            <span id="portal-user-tag" class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold ml-1"></span>
+          </div>
+          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300 transition">Disconnect</button>
         </div>
       </div>
     </header>
 
     <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
-      
-      <!-- Metrics Overview -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <p class="text-xs font-mono text-slate-500 uppercase">Generated Member ID</p>
-          <p id="metric-id-number" class="text-xl font-bold text-cyan-400 mt-1">NX-1001</p>
-          <p class="text-xs text-slate-400 mt-1">Permanent Reference</p>
-        </div>
-        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <p class="text-xs font-mono text-slate-500 uppercase">Average Progress</p>
-          <p id="avg-progress" class="text-xl font-bold text-emerald-400 mt-1">0%</p>
-          <p class="text-xs text-slate-400 mt-1">Across active tasks</p>
-        </div>
-        <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <p class="text-xs font-mono text-slate-500 uppercase">Active Workloads</p>
-          <p id="dashboard-metric-count" class="text-xl font-bold text-purple-400 mt-1">0 Projects</p>
-          <p class="text-xs text-slate-400 mt-1">In execution</p>
-        </div>
-      </div>
-
-      <!-- Project Manager Section with Progress Bar -->
+      <!-- Project Section -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <h3 class="text-base font-bold text-white flex items-center justify-between">
-          <span class="flex items-center gap-2">🚀 Deploy New Workload / Project</span>
+          <span>🚀 Deploy New Workload / Project (Sheet3 Cloud)</span>
+          <button onclick="refreshCloudData()" class="text-xs font-mono text-cyan-400 hover:underline">⟳ Sync Data</button>
         </h3>
         
         <form onsubmit="handleCreateWorkload(event)" class="mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <input type="text" id="workload-name" required placeholder="Project Name (e.g. Neural Pipeline)" class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
-          
-          <select id="workload-status" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:border-brand-500 focus:outline-none">
+          <input type="text" id="workload-name" required placeholder="Project Name" class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none">
+          <select id="workload-status" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
             <option value="Active">Active</option>
             <option value="Pending">Pending</option>
             <option value="Completed">Completed</option>
           </select>
-
           <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1">
             <label class="text-[10px] font-mono text-slate-400">Prog:</label>
             <input type="range" id="workload-progress" min="0" max="100" value="25" class="w-full accent-cyan-400 cursor-pointer" oninput="document.getElementById('prog-val').innerText = this.value + '%'">
             <span id="prog-val" class="text-xs font-mono font-bold text-cyan-400 w-9">25%</span>
           </div>
-          
-          <input type="text" id="workload-desc" placeholder="Details or instance spec..." class="sm:col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:border-brand-500 focus:outline-none">
-          
-          <button type="submit" class="py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">
-            + Add Project
-          </button>
+          <input type="text" id="workload-desc" placeholder="Details..." class="sm:col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none">
+          <button type="submit" id="proj-btn" class="py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">+ Add to Cloud</button>
         </form>
 
         <div class="mt-8 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Your Workloads</span>
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Cloud Projects</span>
             <span id="workload-count" class="text-xs font-mono text-cyan-400">0 Items</span>
           </div>
-
           <div id="workload-list" class="space-y-3 pt-2"></div>
         </div>
       </div>
 
-      <!-- Support Tickets Section (Saves to Sheet2) -->
+      <!-- Support Tickets Section -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-1">
-          <h4 class="text-sm font-bold text-white flex items-center gap-2 mb-3">
-            <span>🎫</span> Open Support Ticket
-          </h4>
-          <p class="text-xs text-slate-400 mb-4">Dispatched straight into Google Sheets (Sheet2).</p>
+          <h4 class="text-sm font-bold text-white mb-2">🎫 Open Support Ticket</h4>
+          <p class="text-xs text-slate-400 mb-4">Direct dispatch + instant Admin Email notification.</p>
           
           <form onsubmit="handleSupportTicket(event)" class="space-y-3">
-            <div>
-              <input type="text" id="ticket-subject" required placeholder="Subject (e.g. Access limit)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none">
-            </div>
-            <div>
-              <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-300 focus:border-brand-500 focus:outline-none">
-                <option value="Normal">Priority: Normal</option>
-                <option value="High">Priority: High (Urgent)</option>
-                <option value="Critical">Priority: Critical SLA</option>
-              </select>
-            </div>
-            <div>
-              <textarea id="ticket-msg" rows="3" required placeholder="Describe issue..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:border-brand-500 focus:outline-none"></textarea>
-            </div>
-            <button type="submit" id="ticket-btn" class="w-full py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">
-              Dispatch Ticket
-            </button>
-            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged to Sheet2!</div>
+            <input type="text" id="ticket-subject" required placeholder="Subject" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+            <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none">
+              <option value="Normal">Priority: Normal</option>
+              <option value="High">Priority: High</option>
+              <option value="Critical">Priority: Critical</option>
+            </select>
+            <textarea id="ticket-msg" rows="3" required placeholder="Describe issue..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"></textarea>
+            <button type="submit" id="ticket-btn" class="w-full py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">Dispatch Ticket</button>
+            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged & Email sent!</div>
           </form>
         </div>
 
         <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-2">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-            <h4 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>📋</span> Dispatched Tickets
-            </h4>
+            <h4 class="text-sm font-bold text-white">📋 Dispatched Tickets & Admin Replies</h4>
             <span id="ticket-count" class="text-xs font-mono text-slate-400">0 Active</span>
           </div>
-          <div id="tickets-list" class="space-y-2 max-h-56 overflow-y-auto">
-            <div class="text-xs font-mono text-slate-500 text-center py-8">No open support tickets.</div>
-          </div>
+          <div id="tickets-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
         </div>
       </div>
-
     </main>
   </div>
 
+  <!-- PROFILE & PASSWORD MODAL -->
+  <div id="profile-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card max-w-md w-full p-6 rounded-3xl border border-cyan-500/30 bg-slate-950">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base font-bold text-white">Change Password</h3>
+        <button onclick="toggleProfileModal()" class="text-slate-400 hover:text-white font-mono text-xs">✕ CLOSE</button>
+      </div>
+      <form onsubmit="handleChangePassword(event)" class="space-y-3">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">Old Password</label>
+          <input type="password" id="old-pass" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1">New Password</label>
+          <input type="password" id="new-pass" minlength="4" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+        </div>
+        <button type="submit" id="pass-btn" class="w-full py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition">Update Password</button>
+        <div id="pass-msg" class="hidden text-center text-xs font-mono mt-2"></div>
+      </form>
+    </div>
+  </div>
 
-  <!-- ==================== JAVASCRIPT ENGINE ==================== -->
+  <!-- JAVASCRIPT ENGINE -->
   <script>
-    // UPDATED WITH YOUR LIVE WEB APP URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw1784i6AyrlpC5zkgfVrX7ZD1TcCYjmNw1o0tcFkjaCJABOgTbCxU-L1C_s33MU78XVQ/exec";
-    
+    // LIVE GOOGLE APPS SCRIPT URL CONNECTED
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR7C3vk1CB0yefctTy0-95Q5geqjBEiSPUicJQccVrSYbUrKwTuhH9mbJ5V9tkByxSnw/exec";
     const SESSION_KEY = "nexus_current_session";
-    const PROJECTS_PREFIX = "nexus_projects_";
-    const TICKETS_PREFIX = "nexus_tickets_";
 
     window.addEventListener("DOMContentLoaded", () => {
       const activeSession = JSON.parse(localStorage.getItem(SESSION_KEY));
-      if (activeSession) {
-        showDashboardView(activeSession);
-      } else {
-        showLandingView();
-      }
+      if (activeSession) showDashboardView(activeSession);
+      else showLandingView();
     });
 
     function showLandingView() {
@@ -370,7 +253,6 @@
       document.getElementById('landing-view').classList.add('hidden');
       document.getElementById('auth-view').classList.remove('hidden');
       document.getElementById('dashboard-view').classList.add('hidden');
-      hideAuthAlert();
     }
 
     function showDashboardView(user) {
@@ -380,38 +262,21 @@
 
       document.getElementById('portal-user-name').innerText = user.name;
       document.getElementById('portal-user-tag').innerText = user.idNumber || ("ID: " + user.id);
-      document.getElementById('portal-user-email').innerText = user.email || ("User ID: " + user.id);
-      document.getElementById('metric-id-number').innerText = user.idNumber || "NX-1001";
 
-      loadUserWorkloads(user.id);
-      loadUserTickets(user.id);
+      refreshCloudData();
     }
 
     function toggleAuthMode(mode) {
       const isLogin = mode === 'login';
       document.getElementById('login-form').classList.toggle('hidden', !isLogin);
       document.getElementById('signup-form').classList.toggle('hidden', isLogin);
-
-      document.getElementById('tab-login').className = isLogin 
-        ? "w-1/2 pb-3 font-semibold text-brand-400 border-b-2 border-brand-400 transition" 
-        : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition";
-
-      document.getElementById('tab-signup').className = !isLogin 
-        ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition" 
-        : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition";
-
-      hideAuthAlert();
     }
 
     function showAuthAlert(msg, isSuccess = false) {
       const alertBox = document.getElementById('auth-alert');
-      alertBox.className = `p-3 rounded-xl text-center font-mono text-xs mb-4 ${isSuccess ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/30' : 'bg-rose-950/80 text-rose-300 border border-rose-500/30'}`;
+      alertBox.className = `p-3 rounded-xl text-center font-mono text-xs mb-4 ${isSuccess ? 'bg-emerald-950/80 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}`;
       alertBox.innerText = msg;
       alertBox.classList.remove('hidden');
-    }
-
-    function hideAuthAlert() {
-      document.getElementById('auth-alert').classList.add('hidden');
     }
 
     async function handleAuthLogin(e) {
@@ -419,34 +284,25 @@
       const enteredId = document.getElementById('auth-login-id').value.trim();
       const enteredPass = document.getElementById('auth-login-pass').value.trim();
       const btn = document.getElementById('login-submit-btn');
-
-      btn.disabled = true;
-      btn.innerText = "Verifying with Sheets...";
+      btn.disabled = true; btn.innerText = "Verifying...";
 
       try {
-        const response = await fetch(APPS_SCRIPT_URL, {
+        const res = await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            action: "login",
-            id: enteredId,
-            password: enteredPass
-          })
+          body: JSON.stringify({ action: "login", id: enteredId, password: enteredPass })
         });
-
-        const result = await response.json();
-
+        const result = await res.json();
         if (result.status === "success") {
           localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
           showDashboardView(result.user);
         } else {
-          showAuthAlert(result.message || "Invalid User ID/Email or Password.");
+          showAuthAlert(result.message);
         }
       } catch (err) {
-        showAuthAlert("Connection error with Sheets API. Try again.");
+        showAuthAlert("Connection error.");
       } finally {
-        btn.disabled = false;
-        btn.innerText = "Sign In";
+        btn.disabled = false; btn.innerText = "Sign In";
       }
     }
 
@@ -455,38 +311,27 @@
       const name = document.getElementById('auth-reg-name').value.trim();
       const email = document.getElementById('auth-reg-email').value.trim();
       const id = document.getElementById('auth-reg-id').value.trim();
-      const password = document.getElementById('auth-reg-pass').value.trim();
+      const pass = document.getElementById('auth-reg-pass').value.trim();
       const btn = document.getElementById('signup-submit-btn');
-
-      btn.disabled = true;
-      btn.innerText = "Generating ID & Saving...";
+      btn.disabled = true; btn.innerText = "Creating...";
 
       try {
-        const response = await fetch(APPS_SCRIPT_URL, {
+        const res = await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            action: "signup",
-            name: name,
-            email: email,
-            id: id,
-            password: password
-          })
+          body: JSON.stringify({ action: "signup", name, email, id, password: pass })
         });
-
-        const result = await response.json();
-
+        const result = await res.json();
         if (result.status === "success") {
           localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
           showDashboardView(result.user);
         } else {
-          showAuthAlert(result.message || "Registration failed. Try another ID.");
+          showAuthAlert(result.message);
         }
       } catch (err) {
-        showAuthAlert("Error saving to Sheets. Please verify permissions.");
+        showAuthAlert("Error saving to Sheets.");
       } finally {
-        btn.disabled = false;
-        btn.innerText = "Create Account & Get ID";
+        btn.disabled = false; btn.innerText = "Create Account & Get ID";
       }
     }
 
@@ -495,116 +340,94 @@
       showLandingView();
     }
 
-    function loadUserWorkloads(userId) {
-      const list = JSON.parse(localStorage.getItem(PROJECTS_PREFIX + userId) || "[]");
-      renderWorkloads(list);
+    // SYNC DATA FROM SHEETS (Projects & Tickets)
+    async function refreshCloudData() {
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "getUserData", userId: session.id })
+        });
+        const result = await res.json();
+        if (result.status === "success") {
+          renderWorkloads(result.projects || []);
+          renderTickets(result.tickets || []);
+        }
+      } catch (err) {
+        console.warn("Sync failed", err);
+      }
     }
 
-    function handleCreateWorkload(e) {
+    // CREATE PROJECT (Saves to Sheet3)
+    async function handleCreateWorkload(e) {
       e.preventDefault();
       const session = JSON.parse(localStorage.getItem(SESSION_KEY));
       const name = document.getElementById('workload-name').value.trim();
       const status = document.getElementById('workload-status').value;
       const progress = parseInt(document.getElementById('workload-progress').value) || 0;
       const desc = document.getElementById('workload-desc').value.trim();
+      const btn = document.getElementById('proj-btn');
 
-      const userKey = PROJECTS_PREFIX + session.id;
-      const list = JSON.parse(localStorage.getItem(userKey) || "[]");
+      btn.disabled = true; btn.innerText = "Saving to Cloud...";
 
-      list.unshift({
-        id: Date.now(),
-        name,
-        status,
-        progress: status === "Completed" ? 100 : progress,
-        desc: desc || "Infrastructure instance active.",
-        date: new Date().toLocaleDateString()
-      });
-
-      localStorage.setItem(userKey, JSON.stringify(list));
-      renderWorkloads(list);
-
-      document.getElementById('workload-name').value = "";
-      document.getElementById('workload-desc').value = "";
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "saveProject",
+            projectId: "PRJ-" + Date.now(),
+            userId: session.id,
+            name, status,
+            progress: status === "Completed" ? 100 : progress,
+            desc: desc || "Infrastructure instance active."
+          })
+        });
+        document.getElementById('workload-name').value = "";
+        document.getElementById('workload-desc').value = "";
+        refreshCloudData();
+      } finally {
+        btn.disabled = false; btn.innerText = "+ Add to Cloud";
+      }
     }
 
-    function updateWorkloadProgress(id, newProgress) {
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      const userKey = PROJECTS_PREFIX + session.id;
-      let list = JSON.parse(localStorage.getItem(userKey) || "[]");
-
-      list = list.map(item => {
-        if (item.id === id) {
-          item.progress = parseInt(newProgress);
-          if (item.progress === 100) item.status = "Completed";
-        }
-        return item;
-      });
-
-      localStorage.setItem(userKey, JSON.stringify(list));
-      renderWorkloads(list);
-    }
-
-    function deleteWorkload(id) {
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      const userKey = PROJECTS_PREFIX + session.id;
-      let list = JSON.parse(localStorage.getItem(userKey) || "[]");
-
-      list = list.filter(w => w.id !== id);
-      localStorage.setItem(userKey, JSON.stringify(list));
-      renderWorkloads(list);
+    async function updateCloudProgress(projId, prog) {
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "updateProgress", projectId: projId, progress: prog })
+        });
+        refreshCloudData();
+      } catch (err) {}
     }
 
     function renderWorkloads(list) {
       const container = document.getElementById('workload-list');
       document.getElementById('workload-count').innerText = `${list.length} Items`;
-      document.getElementById('dashboard-metric-count').innerText = `${list.length} Projects`;
-
-      const totalProg = list.reduce((acc, curr) => acc + (curr.progress || 0), 0);
-      const avg = list.length > 0 ? Math.round(totalProg / list.length) : 0;
-      document.getElementById('avg-progress').innerText = `${avg}%`;
-
       if (list.length === 0) {
-        container.innerHTML = `
-          <div class="p-6 rounded-xl border border-slate-800 text-center text-slate-500 font-mono text-xs">
-            No projects deployed yet. Add your first workload above.
-          </div>
-        `;
+        container.innerHTML = `<div class="p-6 rounded-xl border border-slate-800 text-center text-slate-500 font-mono text-xs">No projects in cloud yet.</div>`;
         return;
       }
-
       container.innerHTML = list.map(item => `
         <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-          <div class="flex items-center justify-between gap-4">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-white">${item.name}</span>
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-full ${
-                  item.status === 'Active' ? 'bg-emerald-950 text-emerald-400 border border-emerald-500/30' :
-                  item.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-500/30' :
-                  'bg-sky-950 text-sky-400 border border-sky-500/30'
-                }">${item.status}</span>
-              </div>
-              <p class="text-[11px] text-slate-400 mt-1">${item.desc}</p>
-            </div>
-            <button onclick="deleteWorkload(${item.id})" class="text-xs font-mono text-rose-400 hover:text-rose-300 px-2 py-1">
-              ✕ Delete
-            </button>
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-white">${item.name}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded ${item.status === 'Completed' ? 'bg-sky-950 text-cyan-400' : 'bg-emerald-950 text-emerald-400'}">${item.status}</span>
           </div>
-
           <div>
-            <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1">
-              <span>Lifecycle:</span>
-              <span class="text-cyan-400 font-bold">${item.progress || 0}%</span>
+            <div class="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
+              <span>Lifecycle:</span><span class="text-cyan-400 font-bold">${item.progress}%</span>
             </div>
             <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-sky-500 to-cyan-400 rounded-full transition-all duration-300" style="width: ${item.progress || 0}%"></div>
+              <div class="h-full bg-gradient-to-r from-sky-500 to-cyan-400" style="width: ${item.progress}%"></div>
             </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-800/40">
-              <span class="text-[9px] font-mono text-slate-500">Created: ${item.date}</span>
-              <div class="flex items-center gap-1.5 text-[10px] font-mono">
-                <span class="text-slate-500">Adjust:</span>
-                <button onclick="updateWorkloadProgress(${item.id}, Math.max(0, ${(item.progress || 0) - 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">-10%</button>
-                <button onclick="updateWorkloadProgress(${item.id}, Math.min(100, ${(item.progress || 0) + 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 hover:text-white">+10%</button>
+            <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-800/40 text-[10px] font-mono">
+              <span class="text-slate-500">ID: ${item.id}</span>
+              <div class="flex items-center gap-1.5">
+                <button onclick="updateCloudProgress('${item.id}', Math.max(0, ${item.progress - 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">-10%</button>
+                <button onclick="updateCloudProgress('${item.id}', Math.min(100, ${item.progress + 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">+10%</button>
               </div>
             </div>
           </div>
@@ -612,11 +435,7 @@
       `).join('');
     }
 
-    function loadUserTickets(userId) {
-      const tickets = JSON.parse(localStorage.getItem(TICKETS_PREFIX + userId) || "[]");
-      renderTickets(tickets);
-    }
-
+    // SUPPORT TICKET (Saves to Sheet2 + Sends Email)
     async function handleSupportTicket(e) {
       e.preventDefault();
       const session = JSON.parse(localStorage.getItem(SESSION_KEY));
@@ -626,119 +445,102 @@
       const btn = document.getElementById('ticket-btn');
       const statusBox = document.getElementById('ticket-status');
 
-      btn.disabled = true;
-      btn.innerText = "Logging ticket...";
-
-      const newTicket = {
-        id: "TICK-" + Math.floor(1000 + Math.random() * 9000),
-        subject,
-        priority,
-        message,
-        date: new Date().toLocaleDateString()
-      };
-
-      const userKey = TICKETS_PREFIX + session.id;
-      const list = JSON.parse(localStorage.getItem(userKey) || "[]");
-      list.unshift(newTicket);
-      localStorage.setItem(userKey, JSON.stringify(list));
-      renderTickets(list);
+      btn.disabled = true; btn.innerText = "Logging ticket...";
 
       try {
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            action: "ticket",
-            userId: session.id,
-            subject: subject,
-            priority: priority,
-            message: message
-          })
+          body: JSON.stringify({ action: "ticket", userId: session.id, subject, priority, message })
         });
-      } catch (err) {
-        console.warn("Offline ticket log", err);
+        statusBox.classList.remove('hidden');
+        setTimeout(() => statusBox.classList.add('hidden'), 3500);
+        document.getElementById('ticket-subject').value = "";
+        document.getElementById('ticket-msg').value = "";
+        refreshCloudData();
+      } finally {
+        btn.disabled = false; btn.innerText = "Dispatch Ticket";
       }
-
-      statusBox.classList.remove('hidden');
-      setTimeout(() => statusBox.classList.add('hidden'), 3500);
-
-      document.getElementById('ticket-subject').value = "";
-      document.getElementById('ticket-msg').value = "";
-      btn.disabled = false;
-      btn.innerText = "Dispatch Ticket";
     }
 
     function renderTickets(tickets) {
       const container = document.getElementById('tickets-list');
       document.getElementById('ticket-count').innerText = `${tickets.length} Active`;
-
       if (tickets.length === 0) {
         container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-8">No open support tickets.</div>`;
         return;
       }
-
       container.innerHTML = tickets.map(t => `
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex items-center justify-between gap-3">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-mono text-cyan-400 font-bold">${t.id}</span>
-              <span class="font-bold text-white">${t.subject}</span>
-              <span class="text-[9px] font-mono px-1.5 py-0.5 rounded ${t.priority === 'Critical' ? 'bg-rose-950 text-rose-400 border border-rose-500/30' : 'bg-slate-800 text-slate-300'}">${t.priority}</span>
-            </div>
-            <p class="text-slate-400 text-[11px] mt-1">${t.message}</p>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-white">${t.subject}</span>
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded ${t.status === 'Resolved' ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-amber-950 text-amber-300 border border-amber-500/30'}">${t.status}</span>
           </div>
-          <span class="text-[10px] font-mono text-slate-500 shrink-0">${t.date}</span>
+          <p class="text-slate-400 text-[11px]">${t.message}</p>
+          ${t.reply ? `
+            <div class="p-2 rounded-lg bg-sky-950/40 border border-sky-500/30 text-[11px] text-cyan-300">
+              <strong class="font-mono text-cyan-400">Admin Reply:</strong> ${t.reply}
+            </div>
+          ` : ''}
+          <div class="text-[9px] font-mono text-slate-500 text-right">${t.date}</div>
         </div>
       `).join('');
+    }
+
+    // PROFILE MODAL & PASSWORD CHANGE
+    function toggleProfileModal() {
+      document.getElementById('profile-modal').classList.toggle('hidden');
+      document.getElementById('pass-msg').classList.add('hidden');
+    }
+
+    async function handleChangePassword(e) {
+      e.preventDefault();
+      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
+      const oldPass = document.getElementById('old-pass').value.trim();
+      const newPass = document.getElementById('new-pass').value.trim();
+      const btn = document.getElementById('pass-btn');
+      const msgBox = document.getElementById('pass-msg');
+
+      btn.disabled = true; btn.innerText = "Updating...";
+
+      try {
+        const res = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "changePassword", userId: session.id, oldPassword: oldPass, newPassword: newPass })
+        });
+        const result = await res.json();
+        msgBox.className = `text-center text-xs font-mono mt-2 ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'}`;
+        msgBox.innerText = result.message;
+        msgBox.classList.remove('hidden');
+        if (result.status === 'success') {
+          document.getElementById('old-pass').value = "";
+          document.getElementById('new-pass').value = "";
+          setTimeout(toggleProfileModal, 2000);
+        }
+      } finally {
+        btn.disabled = false; btn.innerText = "Update Password";
+      }
     }
 
     // Particles Canvas
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
+    function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
     window.addEventListener('resize', resize);
     resize();
-
-    for (let i = 0; i < 35; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.5 + 0.5
-      });
+    for (let i = 0; i < 30; i++) {
+      particles.push({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, r: 1.5 });
     }
-
     function render() {
       ctx.clearRect(0, 0, width, height);
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(14, 165, 233, ${0.15 - dist / 800})`;
-            ctx.lineWidth = 0.6;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
       particles.forEach(p => {
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)'; ctx.fill();
       });
       requestAnimationFrame(render);
     }
