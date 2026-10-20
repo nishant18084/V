@@ -73,10 +73,10 @@
 </head>
 <body class="relative selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
 
-  <!-- Interactive Network Mesh Canvas -->
+  <!-- Network Mesh Background -->
   <canvas id="neural-canvas"></canvas>
 
-  <!-- ==================== VIEW 1: LANDING PAGE ==================== -->
+  <!-- ==================== VIEW 1: PUBLIC LANDING PAGE ==================== -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
@@ -118,7 +118,7 @@
         
         <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-800 bg-slate-900/80 text-xs font-medium text-slate-300 mb-8">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Nexus Production Fabric 3.2 // Online
+          Nexus Production Fabric 3.2 // Online (Sheets DB Connected)
         </div>
 
         <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
@@ -154,9 +154,9 @@
             <p class="text-[11px] text-slate-400 mt-1">Edge Nodes worldwide</p>
           </div>
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
-            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Security</span>
-            <div class="text-2xl font-bold text-white mt-1">SOC-2</div>
-            <p class="text-[11px] text-cyan-400 mt-1">Zero-Trust Ready</p>
+            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Database Link</span>
+            <div class="text-2xl font-bold text-emerald-400 mt-1">Sheets DB</div>
+            <p class="text-[11px] text-cyan-400 mt-1">Live Endpoint</p>
           </div>
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Bandwidth</span>
@@ -246,7 +246,7 @@
       </section>
     </main>
 
-    <!-- FOOTER WITH REAL LEGAL MODAL BUTTONS -->
+    <!-- FOOTER WITH LEGAL MODAL BUTTONS -->
     <footer class="border-t border-slate-800/80 py-10 glass-nav relative z-20">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs sm:text-sm text-slate-400 font-mono">
         <div>
@@ -282,7 +282,7 @@
           </div>
         </div>
         <h2 class="text-2xl font-bold tracking-tight text-white">Nexus Client Console</h2>
-        <p class="text-xs font-mono text-slate-400 mt-1">// SECURE ENTERPRISE AUTHENTICATION</p>
+        <p class="text-xs font-mono text-slate-400 mt-1">// LIVE GOOGLE SHEETS CLOUD DATABASE</p>
       </div>
 
       <!-- Auth Box -->
@@ -304,36 +304,36 @@
         <!-- Login Form -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email</label>
-            <input type="text" id="auth-login-id" required placeholder="admin or your username" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <label class="block text-xs font-medium text-slate-400 mb-1">User ID</label>
+            <input type="text" id="auth-login-id" required placeholder="Enter User ID" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-login-pass" required placeholder="••••••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           
-          <button type="submit" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-brand-500/20">
-            Authenticate & Access Console
+          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-brand-500/20">
+            Sign In with Sheets DB
           </button>
         </form>
 
         <!-- Sign Up Form -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-4 hidden">
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Your Full Name</label>
-            <input type="text" id="auth-reg-name" required placeholder="Jane Doe" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
+            <input type="text" id="auth-reg-name" required placeholder="e.g. John Doe" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Choose User ID or Email</label>
-            <input type="text" id="auth-reg-id" required placeholder="client_name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <label class="block text-xs font-medium text-slate-400 mb-1">Choose User ID</label>
+            <input type="text" id="auth-reg-id" required placeholder="e.g. johndoe" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">Create Password</label>
-            <input type="password" id="auth-reg-pass" minlength="4" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
+            <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
           </div>
           
-          <button type="submit" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-cyan-400/20">
-            Register New Account
+          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition shadow-lg shadow-cyan-400/20">
+            Save to Google Sheets
           </button>
         </form>
 
@@ -360,7 +360,7 @@
           </div>
           <div>
             <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
-            <span class="block text-[10px] font-mono text-emerald-400">● CLIENT NODE CONNECTED</span>
+            <span class="block text-[10px] font-mono text-emerald-400">● LIVE CLOUD CONNECTED</span>
           </div>
         </div>
 
@@ -382,19 +382,19 @@
       <!-- Metrics Overview -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
-          <p class="text-xs font-mono text-slate-500 uppercase">Session Status</p>
-          <p class="text-xl font-bold text-emerald-400 mt-1">Verified (TLS 1.3)</p>
-          <p class="text-xs text-slate-400 mt-1">Zero-Trust Secured</p>
+          <p class="text-xs font-mono text-slate-500 uppercase">Database Link</p>
+          <p class="text-xl font-bold text-emerald-400 mt-1">Google Sheets API</p>
+          <p class="text-xs text-slate-400 mt-1">Status: Active</p>
         </div>
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
           <p class="text-xs font-mono text-slate-500 uppercase">Allocated Bandwidth</p>
           <p class="text-xl font-bold text-cyan-400 mt-1">10 Gbps</p>
-          <p class="text-xs text-slate-400 mt-1">Dedicated Pipe</p>
+          <p class="text-xs text-slate-400 mt-1">Dedicated Line</p>
         </div>
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
           <p class="text-xs font-mono text-slate-500 uppercase">Active Workloads</p>
           <p id="dashboard-metric-count" class="text-xl font-bold text-purple-400 mt-1">0 Projects</p>
-          <p class="text-xs text-slate-400 mt-1">Running on Node #04</p>
+          <p class="text-xs text-slate-400 mt-1">Managed securely</p>
         </div>
       </div>
 
@@ -437,7 +437,7 @@
   </div>
 
 
-  <!-- ==================== POPUP MODAL (LEGAL SPECIFICATIONS) ==================== -->
+  <!-- ==================== POPUP MODAL (LEGAL DOCUMENTS) ==================== -->
   <div id="legal-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
     <div class="glass-card max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 rounded-3xl border border-cyan-500/30 glow-cyan relative bg-slate-950">
       
@@ -454,25 +454,13 @@
   </div>
 
 
-  <!-- ==================== SCRIPT ENGINE ==================== -->
+  <!-- ==================== LIVE SCRIPTS WITH REAL GOOGLE SHEETS API ==================== -->
   <script>
-    // 1. DATA KEYS
-    const USERS_DB = "nexus_registered_users";
+    // YOUR LIVE GOOGLE SHEETS API ENDPOINT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8xfmeh6Bhr343aoG9NZXIt5YducfjJ0osYa4VcK_awK2MNBblaDUxAKHuwcsZyo1u3g/exec";
+    
     const SESSION_KEY = "nexus_current_session";
     const PROJECTS_PREFIX = "nexus_projects_";
-
-    // Setup initial accounts
-    function initDefaultUsers() {
-      let users = JSON.parse(localStorage.getItem(USERS_DB) || "[]");
-      if (users.length === 0) {
-        users = [
-          { id: "admin", name: "System Administrator", pass: "password123" },
-          { id: "nexus_client", name: "Enterprise Partner", pass: "pass2026" }
-        ];
-        localStorage.setItem(USERS_DB, JSON.stringify(users));
-      }
-    }
-    initDefaultUsers();
 
     // Check active session on load
     window.addEventListener("DOMContentLoaded", () => {
@@ -504,7 +492,7 @@
       document.getElementById('dashboard-view').classList.remove('hidden');
 
       document.getElementById('portal-user-name').innerText = user.name;
-      document.getElementById('portal-user-id').innerText = "ID: " + user.id;
+      document.getElementById('portal-user-id').innerText = "User ID: " + user.id;
 
       loadUserWorkloads(user.id);
     }
@@ -536,44 +524,83 @@
       document.getElementById('auth-alert').classList.add('hidden');
     }
 
-    // Auth Actions
-    function handleAuthLogin(e) {
+    // AUTH ACTION: LOGIN VIA GOOGLE SHEETS
+    async function handleAuthLogin(e) {
       e.preventDefault();
       const enteredId = document.getElementById('auth-login-id').value.trim();
       const enteredPass = document.getElementById('auth-login-pass').value;
+      const btn = document.getElementById('login-submit-btn');
 
-      const users = JSON.parse(localStorage.getItem(USERS_DB) || "[]");
-      const matched = users.find(u => u.id.toLowerCase() === enteredId.toLowerCase() && u.pass === enteredPass);
+      btn.disabled = true;
+      btn.innerText = "Verifying with Sheets...";
 
-      if (matched) {
-        localStorage.setItem(SESSION_KEY, JSON.stringify(matched));
-        showDashboardView(matched);
-      } else {
-        showAuthAlert("Invalid credentials. Try User: admin | Pass: password123");
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "login",
+            id: enteredId,
+            password: enteredPass
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
+          showDashboardView(result.user);
+        } else {
+          showAuthAlert(result.message || "Invalid User ID or Password.");
+        }
+      } catch (err) {
+        showAuthAlert("Connection error with Sheets API. Check internet or API deployment.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Sign In with Sheets DB";
       }
     }
 
-    function handleAuthSignup(e) {
+    // AUTH ACTION: SIGNUP TO GOOGLE SHEETS
+    async function handleAuthSignup(e) {
       e.preventDefault();
       const name = document.getElementById('auth-reg-name').value.trim();
       const id = document.getElementById('auth-reg-id').value.trim();
-      const pass = document.getElementById('auth-reg-pass').value;
+      const password = document.getElementById('auth-reg-pass').value;
+      const btn = document.getElementById('signup-submit-btn');
 
-      let users = JSON.parse(localStorage.getItem(USERS_DB) || "[]");
+      btn.disabled = true;
+      btn.innerText = "Writing to Google Sheets...";
 
-      if (users.find(u => u.id.toLowerCase() === id.toLowerCase())) {
-        showAuthAlert("User ID already registered. Please choose another or Sign In.");
-        return;
+      try {
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            action: "signup",
+            name: name,
+            id: id,
+            password: password
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
+          showDashboardView(result.user);
+        } else {
+          showAuthAlert(result.message || "Registration failed. Try another ID.");
+        }
+      } catch (err) {
+        showAuthAlert("Error saving to Sheets. Please verify permissions.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Save to Google Sheets";
       }
-
-      const newUser = { id, name, pass };
-      users.push(newUser);
-      localStorage.setItem(USERS_DB, JSON.stringify(users));
-
-      localStorage.setItem(SESSION_KEY, JSON.stringify(newUser));
-      showDashboardView(newUser);
     }
 
+    // Handle Logout
     function handleLogout() {
       localStorage.removeItem(SESSION_KEY);
       showLandingView();
@@ -655,7 +682,7 @@
       `).join('');
     }
 
-    // 2. LEGAL DOCUMENTS DATA & MODAL
+    // LEGAL MODAL HANDLER
     const legalContent = {
       privacy: {
         title: "Privacy Policy",
@@ -717,7 +744,7 @@
       if (e.key === 'Escape') hideModal();
     });
 
-    // 3. CONTACT FORM SIMULATION
+    // CONTACT FORM HANDLER
     const form = document.getElementById('contact-form');
     const statusBox = document.getElementById('form-status');
     const formBtn = document.getElementById('form-btn');
@@ -735,7 +762,7 @@
       }, 500);
     });
 
-    // 4. PARTICLES CANVAS
+    // PARTICLES CANVAS
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
