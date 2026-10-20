@@ -73,10 +73,9 @@
 </head>
 <body class="relative selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
 
-  <!-- Network Mesh Background -->
   <canvas id="neural-canvas"></canvas>
 
-  <!-- ==================== VIEW 1: PUBLIC LANDING PAGE ==================== -->
+  <!-- ==================== VIEW 1: LANDING PAGE ==================== -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
 
     <!-- NAVBAR -->
@@ -141,7 +140,7 @@
           </a>
         </div>
 
-        <!-- Telemetry Stats -->
+        <!-- Stats -->
         <div id="infrastructure" class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl mt-20 pt-10 border-t border-slate-800 text-left">
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Uptime SLA</span>
@@ -156,7 +155,7 @@
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Database Link</span>
             <div class="text-2xl font-bold text-emerald-400 mt-1">Sheets DB</div>
-            <p class="text-[11px] text-cyan-400 mt-1">Live Endpoint</p>
+            <p class="text-[11px] text-cyan-400 mt-1">Live Endpoint Active</p>
           </div>
           <div class="p-4 rounded-xl border border-slate-800/60 bg-slate-900/40">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Bandwidth</span>
@@ -246,7 +245,7 @@
       </section>
     </main>
 
-    <!-- FOOTER WITH LEGAL MODAL BUTTONS -->
+    <!-- FOOTER -->
     <footer class="border-t border-slate-800/80 py-10 glass-nav relative z-20">
       <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-xs sm:text-sm text-slate-400 font-mono">
         <div>
@@ -272,7 +271,6 @@
   <div id="auth-view" class="hidden relative z-20 flex-grow flex items-center justify-center p-4">
     <div class="w-full max-w-md">
       
-      <!-- Brand Logo -->
       <div class="text-center mb-6">
         <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-400 p-[1.5px] mx-auto mb-3 glow-cyan">
           <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
@@ -285,7 +283,6 @@
         <p class="text-xs font-mono text-slate-400 mt-1">// LIVE GOOGLE SHEETS CLOUD DATABASE</p>
       </div>
 
-      <!-- Auth Box -->
       <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan">
         
         <!-- Toggle Tabs -->
@@ -298,7 +295,6 @@
           </button>
         </div>
 
-        <!-- Alert Notification -->
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
         <!-- Login Form -->
@@ -351,7 +347,6 @@
   <!-- ==================== VIEW 3: AUTHENTICATED DASHBOARD ==================== -->
   <div id="dashboard-view" class="hidden relative z-20 flex-grow flex flex-col">
     
-    <!-- Top Header -->
     <header class="glass-card border-b border-slate-800 px-6 py-4 sticky top-0 z-30">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
         <div class="flex items-center gap-3">
@@ -376,10 +371,8 @@
       </div>
     </header>
 
-    <!-- Dashboard Content Area -->
     <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
       
-      <!-- Metrics Overview -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800">
           <p class="text-xs font-mono text-slate-500 uppercase">Database Link</p>
@@ -398,7 +391,6 @@
         </div>
       </div>
 
-      <!-- Project Manager Section -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <h3 class="text-base font-bold text-white flex items-center gap-2">
           <span>🚀</span> Deploy New Workload / Project
@@ -420,7 +412,6 @@
           </button>
         </form>
 
-        <!-- Project List View -->
         <div class="mt-8 space-y-3">
           <div class="flex items-center justify-between border-b border-slate-800 pb-2">
             <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Your Workloads</span>
@@ -428,7 +419,6 @@
           </div>
 
           <div id="workload-list" class="space-y-3 pt-2">
-            <!-- Dynamically injected projects -->
           </div>
         </div>
       </div>
@@ -437,7 +427,7 @@
   </div>
 
 
-  <!-- ==================== POPUP MODAL (LEGAL DOCUMENTS) ==================== -->
+  <!-- ==================== POPUP MODAL ==================== -->
   <div id="legal-modal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4">
     <div class="glass-card max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 sm:p-8 rounded-3xl border border-cyan-500/30 glow-cyan relative bg-slate-950">
       
@@ -454,15 +444,14 @@
   </div>
 
 
-  <!-- ==================== LIVE SCRIPTS WITH REAL GOOGLE SHEETS API ==================== -->
+  <!-- ==================== LIVE SCRIPTS WITH NEW SHEETS URL ==================== -->
   <script>
-    // YOUR LIVE GOOGLE SHEETS API ENDPOINT
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8xfmeh6Bhr343aoG9NZXIt5YducfjJ0osYa4VcK_awK2MNBblaDUxAKHuwcsZyo1u3g/exec";
+    // CLEANED UNIVERSAL PUBLIC ENDPOINT
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwU_j2ZSd8KoHU_WZk0xza9vU8UW8sRVXBL3qRmSXJexPgOzqYBTN_95YzGlNUEVkl--g/exec";
     
     const SESSION_KEY = "nexus_current_session";
     const PROJECTS_PREFIX = "nexus_projects_";
 
-    // Check active session on load
     window.addEventListener("DOMContentLoaded", () => {
       const activeSession = JSON.parse(localStorage.getItem(SESSION_KEY));
       if (activeSession) {
@@ -472,7 +461,6 @@
       }
     });
 
-    // View Switching
     function showLandingView() {
       document.getElementById('landing-view').classList.remove('hidden');
       document.getElementById('auth-view').classList.add('hidden');
@@ -524,11 +512,11 @@
       document.getElementById('auth-alert').classList.add('hidden');
     }
 
-    // AUTH ACTION: LOGIN VIA GOOGLE SHEETS
+    // LOGIN VIA GOOGLE SHEETS
     async function handleAuthLogin(e) {
       e.preventDefault();
       const enteredId = document.getElementById('auth-login-id').value.trim();
-      const enteredPass = document.getElementById('auth-login-pass').value;
+      const enteredPass = document.getElementById('auth-login-pass').value.trim();
       const btn = document.getElementById('login-submit-btn');
 
       btn.disabled = true;
@@ -554,19 +542,19 @@
           showAuthAlert(result.message || "Invalid User ID or Password.");
         }
       } catch (err) {
-        showAuthAlert("Connection error with Sheets API. Check internet or API deployment.");
+        showAuthAlert("Connection error with Sheets API. Try again.");
       } finally {
         btn.disabled = false;
         btn.innerText = "Sign In with Sheets DB";
       }
     }
 
-    // AUTH ACTION: SIGNUP TO GOOGLE SHEETS
+    // SIGNUP TO GOOGLE SHEETS
     async function handleAuthSignup(e) {
       e.preventDefault();
       const name = document.getElementById('auth-reg-name').value.trim();
       const id = document.getElementById('auth-reg-id').value.trim();
-      const password = document.getElementById('auth-reg-pass').value;
+      const password = document.getElementById('auth-reg-pass').value.trim();
       const btn = document.getElementById('signup-submit-btn');
 
       btn.disabled = true;
@@ -600,13 +588,11 @@
       }
     }
 
-    // Handle Logout
     function handleLogout() {
       localStorage.removeItem(SESSION_KEY);
       showLandingView();
     }
 
-    // Projects Management
     function loadUserWorkloads(userId) {
       const list = JSON.parse(localStorage.getItem(PROJECTS_PREFIX + userId) || "[]");
       renderWorkloads(list);
@@ -682,7 +668,6 @@
       `).join('');
     }
 
-    // LEGAL MODAL HANDLER
     const legalContent = {
       privacy: {
         title: "Privacy Policy",
@@ -744,7 +729,6 @@
       if (e.key === 'Escape') hideModal();
     });
 
-    // CONTACT FORM HANDLER
     const form = document.getElementById('contact-form');
     const statusBox = document.getElementById('form-status');
     const formBtn = document.getElementById('form-btn');
@@ -762,7 +746,6 @@
       }, 500);
     });
 
-    // PARTICLES CANVAS
     const canvas = document.getElementById('neural-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, particles = [];
