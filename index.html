@@ -3,29 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nexus Systems Technologies // Client & Admin Portal</title>
+  <title>Nexus Systems Technologies // Portal</title>
   
   <link rel="icon" type="image/png" href="logo.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', dark: '#030712' }
-          },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-
   <style>
     body { background-color: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
     .glow-cyan { box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.35); }
@@ -37,32 +21,26 @@
       filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.65));
       transition: all 0.3s ease;
     }
-    .brand-glow:hover {
-      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.95));
-      transform: scale(1.04);
-    }
   </style>
 </head>
-<body class="relative selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+<body class="relative selection:bg-cyan-500 selection:text-white flex flex-col min-h-screen">
 
   <canvas id="neural-canvas"></canvas>
 
-  <!-- LANDING PAGE VIEW -->
+  <!-- 1. LANDING PAGE VIEW -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
     <header class="glass-nav sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
-        <a href="#" onclick="showLandingView()" class="flex items-center gap-2.5 brand-glow shrink-0">
+        <div class="flex items-center gap-2.5 brand-glow shrink-0 cursor-pointer" onclick="goToLanding()">
           <img src="logo.png" alt="Nexus Logo" class="w-9 h-9 object-contain rounded-full border border-cyan-500/30">
           <div class="leading-none">
-            <span class="text-base sm:text-lg font-extrabold tracking-wider text-white font-mono">NEXUS<span class="text-brand-400">.</span></span>
+            <span class="text-base sm:text-lg font-extrabold tracking-wider text-white font-mono">NEXUS<span class="text-cyan-400">.</span></span>
             <span class="block text-[8px] sm:text-[9px] font-mono tracking-widest text-slate-400 uppercase">SYSTEMS TECH</span>
           </div>
-        </a>
+        </div>
 
         <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-          <button type="button" onclick="openLegalModal('terms')" class="text-[11px] sm:text-xs text-slate-400 hover:text-slate-200 transition">Terms</button>
-          <button type="button" onclick="openLegalModal('privacy')" class="text-[11px] sm:text-xs text-slate-400 hover:text-slate-200 transition">Privacy</button>
-          <button type="button" onclick="showAuthView()" class="text-[11px] sm:text-xs font-semibold px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
+          <button type="button" onclick="goToAuth()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
             Portal Access
           </button>
         </div>
@@ -88,7 +66,7 @@
       </p>
       
       <div class="mt-8">
-        <button type="button" onclick="showAuthView()" class="px-8 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm tracking-wide transition shadow-xl shadow-brand-500/25">
+        <button type="button" onclick="goToAuth()" class="px-8 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide transition shadow-xl shadow-cyan-500/25 cursor-pointer">
           Open Portal Console →
         </button>
       </div>
@@ -97,18 +75,11 @@
     <footer class="glass-nav py-6 border-t border-slate-800 text-center text-xs text-slate-500">
       <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span>© 2026 Nexus Systems Technologies. All rights reserved.</span>
-        <div class="flex gap-4">
-          <button onclick="openLegalModal('terms')" class="hover:underline">Terms of Service</button>
-          <span>•</span>
-          <button onclick="openLegalModal('privacy')" class="hover:underline">Privacy Policy</button>
-          <span>•</span>
-          <button onclick="openLegalModal('sla')" class="hover:underline">Service SLA</button>
-        </div>
       </div>
     </footer>
   </div>
 
-  <!-- AUTH VIEW -->
+  <!-- 2. AUTH VIEW -->
   <div id="auth-view" class="hidden relative z-20 flex-grow flex items-center justify-center p-4">
     <div class="w-full max-w-md my-8">
       <div class="text-center mb-6">
@@ -121,60 +92,55 @@
 
       <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan">
         <div class="flex border-b border-slate-800 mb-6 font-mono text-xs">
-          <button id="tab-login" onclick="toggleAuthMode('login')" class="w-1/2 pb-3 font-semibold text-brand-400 border-b-2 border-brand-400 transition">Sign In</button>
-          <button id="tab-signup" onclick="toggleAuthMode('signup')" class="w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition">Create Account</button>
+          <button id="tab-login" onclick="toggleAuth('login')" class="w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer">Sign In</button>
+          <button id="tab-signup" onclick="toggleAuth('signup')" class="w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer">Create Account</button>
         </div>
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
+        <!-- Login Form -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email</label>
-            <input type="text" id="auth-login-id" required placeholder="User ID or Email" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="text" id="auth-login-id" required placeholder="User ID or Email" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
-            <input type="password" id="auth-login-pass" required placeholder="••••••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="password" id="auth-login-pass" required placeholder="••••••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
-          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Sign In</button>
+          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition cursor-pointer">Sign In</button>
         </form>
 
+        <!-- Signup Form -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-3 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
-            <input type="text" id="auth-reg-name" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="text" id="auth-reg-name" required placeholder="e.g. Rahul Sharma" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Email Address</label>
-            <input type="email" id="auth-reg-email" required placeholder="rahul@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="email" id="auth-reg-email" required placeholder="rahul@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Choose User ID</label>
-            <input type="text" id="auth-reg-id" required placeholder="e.g. rahul123" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="text" id="auth-reg-id" required placeholder="e.g. rahul123" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
-            <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-brand-500 focus:outline-none">
+            <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
 
-          <div class="pt-2 flex items-start gap-2">
-            <input type="checkbox" id="auth-reg-agree" required class="mt-1 accent-cyan-400 rounded cursor-pointer">
-            <label for="auth-reg-agree" class="text-[11px] text-slate-400 leading-snug cursor-pointer">
-              I agree to the <button type="button" onclick="openLegalModal('terms')" class="text-brand-400 underline hover:text-brand-300">Terms of Service</button> and acknowledge the <button type="button" onclick="openLegalModal('privacy')" class="text-brand-400 underline hover:text-brand-300">Privacy Policy</button>.
-            </label>
-          </div>
-
-          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition mt-2">Create Account & Get ID</button>
+          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition mt-2 cursor-pointer">Create Account & Get ID</button>
         </form>
 
         <div class="mt-6 pt-5 border-t border-slate-800 text-center">
-          <button type="button" onclick="showLandingView()" class="text-xs font-mono text-slate-400 hover:text-white transition">← Return to Website</button>
+          <button type="button" onclick="goToLanding()" class="text-xs font-mono text-slate-400 hover:text-white transition cursor-pointer">← Return to Website</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- CLIENT DASHBOARD VIEW -->
+  <!-- 3. CLIENT DASHBOARD VIEW -->
   <div id="dashboard-view" class="hidden relative z-20 flex-grow flex flex-col">
     <header class="glass-card border-b border-slate-800 px-6 py-4 sticky top-0 z-30">
       <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -187,25 +153,22 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <button onclick="toggleProfileModal()" class="px-3 py-1.5 rounded-lg border border-slate-700 hover:border-slate-500 text-xs font-mono text-slate-300 transition">
-            ⚙ Profile & Password
-          </button>
           <div class="hidden sm:block text-right">
             <span id="portal-user-name" class="text-xs font-bold text-white"></span>
             <span id="portal-user-tag" class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold ml-1"></span>
           </div>
-          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300 transition">Disconnect</button>
+          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300 transition cursor-pointer">Disconnect</button>
         </div>
       </div>
     </header>
 
     <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
 
-      <!-- GEMINI AI ASSISTANT BOX -->
+      <!-- GEMINI AI BOX -->
       <div class="glass-card p-6 rounded-2xl border border-cyan-500/40 glow-cyan">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Powered by Gemini)</h4>
+          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Gemini)</h4>
         </div>
         
         <div id="ai-chat-output" class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 min-h-[60px] max-h-48 overflow-y-auto mb-3 font-mono">
@@ -213,16 +176,16 @@
         </div>
         
         <form onsubmit="handleGeminiQuery(event)" class="flex gap-2">
-          <input type="text" id="ai-input" required placeholder="Type your question to Gemini AI..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition">Ask AI</button>
+          <input type="text" id="ai-input" required placeholder="Ask Gemini AI..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition cursor-pointer">Ask AI</button>
         </form>
       </div>
 
       <!-- WORKLOAD / PROJECTS -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <h3 class="text-base font-bold text-white flex items-center justify-between">
-          <span>🚀 Deploy New Workload / Project (Sheet3 Cloud)</span>
-          <button onclick="refreshCloudData()" class="text-xs font-mono text-cyan-400 hover:underline">⟳ Sync Data</button>
+          <span>🚀 Deploy New Workload / Project</span>
+          <button onclick="refreshCloudData()" class="text-xs font-mono text-cyan-400 hover:underline cursor-pointer">⟳ Sync Data</button>
         </h3>
         
         <form onsubmit="handleCreateWorkload(event)" class="mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -238,7 +201,7 @@
             <span id="prog-val" class="text-xs font-mono font-bold text-cyan-400 w-9">25%</span>
           </div>
           <input type="text" id="workload-desc" placeholder="Details..." class="sm:col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none">
-          <button type="submit" id="proj-btn" class="py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">+ Add to Cloud</button>
+          <button type="submit" id="proj-btn" class="py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition cursor-pointer">+ Add to Cloud</button>
         </form>
 
         <div class="mt-8 space-y-3">
@@ -250,71 +213,159 @@
         </div>
       </div>
 
-      <!-- SUPPORT TICKETS -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-1">
-          <h4 class="text-sm font-bold text-white mb-2">🎫 Open Support Ticket</h4>
-          <p class="text-xs text-slate-400 mb-4">Direct dispatch to cloud database.</p>
-          
-          <form onsubmit="handleSupportTicket(event)" class="space-y-3">
-            <input type="text" id="ticket-subject" required placeholder="Subject" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-            <select id="ticket-priority" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none">
-              <option value="Normal">Priority: Normal</option>
-              <option value="High">Priority: High</option>
-              <option value="Critical">Priority: Critical</option>
-            </select>
-            <textarea id="ticket-msg" rows="3" required placeholder="Describe issue..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"></textarea>
-            <button type="submit" id="ticket-btn" class="w-full py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">Dispatch Ticket</button>
-            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged successfully!</div>
-          </form>
-        </div>
-
-        <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-2">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-            <h4 class="text-sm font-bold text-white">📋 Dispatched Tickets & Admin Replies</h4>
-            <span id="ticket-count" class="text-xs font-mono text-slate-400">0 Active</span>
-          </div>
-          <div id="tickets-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
-        </div>
-      </div>
     </main>
   </div>
 
-  <!-- MASTER ADMIN DASHBOARD VIEW -->
-  <div id="admin-view" class="hidden relative z-20 flex-grow flex flex-col">
-    <header class="glass-card border-b border-amber-500/20 px-6 py-4 sticky top-0 z-30 bg-slate-950/90">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img src="logo.png" alt="Nexus Logo" class="w-9 h-9 object-contain rounded-full border border-amber-500/50" style="filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));">
-          <div>
-            <span class="text-sm font-bold text-white tracking-wide">MASTER ADMIN CONTROLLER</span>
-            <span class="block text-[10px] font-mono text-amber-400">★ GLOBAL OVERRIDE // ALL SHEETS CONTROL</span>
-          </div>
-        </div>
+  <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4pVLFerBrwpj7ZySWw8RWn7mrQgDNoxZcNh_nIXX4-PqeY6xxBSiJyaG9Qi4b2Opd/exec";
+    const SESSION_KEY = "nexus_current_session";
+    const MASTER_ADMIN_EMAIL = "vich62097@gmail.com";
 
-        <div class="flex items-center gap-4">
-          <button onclick="loadAdminPanelData()" class="px-3 py-1.5 rounded-lg border border-amber-500/40 hover:bg-amber-500/10 text-xs font-mono text-amber-300 transition">⟳ Refresh All</button>
-          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300 transition">Disconnect</button>
-        </div>
-      </div>
-    </header>
+    // View Switching Logic
+    function goToLanding() {
+      document.getElementById('landing-view').classList.remove('hidden');
+      document.getElementById('auth-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+    }
 
-    <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div class="glass-card p-4 rounded-xl border border-slate-800">
-          <span class="text-xs font-mono text-slate-400">REGISTERED CLIENTS</span>
-          <div id="adm-client-count" class="text-2xl font-bold text-white mt-1">0</div>
-        </div>
-        <div class="glass-card p-4 rounded-xl border border-slate-800">
-          <span class="text-xs font-mono text-slate-400">TOTAL SUPPORT TICKETS</span>
-          <div id="adm-ticket-count" class="text-2xl font-bold text-amber-400 mt-1">0</div>
-        </div>
-        <div class="glass-card p-4 rounded-xl border border-slate-800">
-          <span class="text-xs font-mono text-slate-400">ACTIVE CLOUD PROJECTS</span>
-          <div id="adm-project-count" class="text-2xl font-bold text-cyan-400 mt-1">0</div>
-        </div>
-      </div>
+    function goToAuth() {
+      document.getElementById('landing-view').classList.add('hidden');
+      document.getElementById('auth-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+    }
 
-      <div class="glass-card p-6 rounded-2xl border border-slate-800">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-       
+    function goToDashboard(user) {
+      document.getElementById('landing-view').classList.add('hidden');
+      document.getElementById('auth-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+
+      document.getElementById('portal-user-name').innerText = user.name || "Client";
+      document.getElementById('portal-user-tag').innerText = user.idNumber || ("ID: " + user.id);
+      refreshCloudData();
+    }
+
+    function toggleAuth(mode) {
+      const isLogin = mode === 'login';
+      document.getElementById('login-form').classList.toggle('hidden', !isLogin);
+      document.getElementById('signup-form').classList.toggle('hidden', isLogin);
+      document.getElementById('tab-login').className = isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer" : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer";
+      document.getElementById('tab-signup').className = !isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer" : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer";
+    }
+
+    function handleLogout() {
+      localStorage.removeItem(SESSION_KEY);
+      goToLanding();
+    }
+
+    // Auto login check
+    window.addEventListener("DOMContentLoaded", () => {
+      try {
+        const active = JSON.parse(localStorage.getItem(SESSION_KEY));
+        if (active) goToDashboard(active);
+        else goToLanding();
+      } catch (e) {
+        goToLanding();
+      }
+    });
+
+    // API Call Helper
+    async function apiPost(payload) {
+      const res = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      return await res.json();
+    }
+
+    // Login
+    async function handleAuthLogin(e) {
+      e.preventDefault();
+      const enteredId = document.getElementById('auth-login-id').value.trim();
+      const enteredPass = document.getElementById('auth-login-pass').value.trim();
+      const btn = document.getElementById('login-submit-btn');
+      const alertBox = document.getElementById('auth-alert');
+
+      btn.disabled = true; btn.innerText = "Signing in...";
+      alertBox.classList.add('hidden');
+
+      try {
+        const result = await apiPost({ action: "login", id: enteredId, password: enteredPass });
+        if (result.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
+          goToDashboard(result.user);
+        } else {
+          alertBox.innerText = result.message || "Invalid credentials";
+          alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+          alertBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        alertBox.innerText = "Error connecting to cloud database";
+        alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+        alertBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false; btn.innerText = "Sign In";
+      }
+    }
+
+    // Signup
+    async function handleAuthSignup(e) {
+      e.preventDefault();
+      const name = document.getElementById('auth-reg-name').value.trim();
+      const email = document.getElementById('auth-reg-email').value.trim();
+      const id = document.getElementById('auth-reg-id').value.trim();
+      const pass = document.getElementById('auth-reg-pass').value.trim();
+      const btn = document.getElementById('signup-submit-btn');
+      const alertBox = document.getElementById('auth-alert');
+
+      btn.disabled = true; btn.innerText = "Creating...";
+      alertBox.classList.add('hidden');
+
+      try {
+        const result = await apiPost({ action: "signup", name, email, id, password: pass });
+        if (result.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
+          goToDashboard(result.user);
+        } else {
+          alertBox.innerText = result.message || "Failed";
+          alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+          alertBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        alertBox.innerText = "Error contacting server";
+        alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+        alertBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false; btn.innerText = "Create Account & Get ID";
+      }
+    }
+
+    // Gemini AI Query
+    async function handleGeminiQuery(e) {
+      e.preventDefault();
+      const input = document.getElementById('ai-input');
+      const out = document.getElementById('ai-chat-output');
+      const btn = document.getElementById('ai-btn');
+      const prompt = input.value.trim();
+
+      if (!prompt) return;
+
+      btn.disabled = true; btn.innerText = "Thinking...";
+      out.innerHTML = `<span class="text-cyan-400 animate-pulse">Analyzing with Gemini...</span>`;
+
+      try {
+        const res = await apiPost({ action: "askAI", prompt: prompt });
+        if (res && res.reply) {
+          out.innerHTML = `<div class="text-slate-200 leading-relaxed">${res.reply}</div>`;
+          input.value = "";
+        } else {
+          out.innerText = "No response from AI.";
+        }
+      } catch (err) {
+        out.innerText = "Failed to connect to AI server.";
+      } finally {
+        btn.disabled = false; btn.innerText = "Ask AI";
+      }
+    }
+
+    // W
