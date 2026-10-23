@@ -1,99 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nexus Systems Technologies // Portal</title>
-  
   <link rel="icon" type="image/png" href="logo.png">
-
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   
   <style>
-    body { background-color: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; min-height: 100vh; }
-    .glow-cyan { box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.35); }
-    .glass-nav { background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
-    .glass-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-    canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
-    
-    .brand-glow {
-      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.65));
-      transition: all 0.3s ease;
-    }
+    body { background-color: #030712; color: #f3f4f6; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-card { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    .glow-cyan { box-shadow: 0 0 35px -5px rgba(14, 165, 233, 0.4); }
   </style>
 </head>
-<body class="relative selection:bg-cyan-500 selection:text-white flex flex-col min-h-screen">
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
 
-  <canvas id="neural-canvas"></canvas>
-
-  <!-- 1. LANDING PAGE VIEW -->
-  <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
-    <header class="glass-nav sticky top-0 z-40">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
-        <div class="flex items-center gap-2.5 brand-glow shrink-0 cursor-pointer" onclick="goToLanding()">
-          <img src="logo.png" alt="Nexus Logo" class="w-9 h-9 object-contain rounded-full border border-cyan-500/30">
-          <div class="leading-none">
-            <span class="text-base sm:text-lg font-extrabold tracking-wider text-white font-mono">NEXUS<span class="text-cyan-400">.</span></span>
-            <span class="block text-[8px] sm:text-[9px] font-mono tracking-widest text-slate-400 uppercase">SYSTEMS TECH</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
-          <button type="button" onclick="goToAuth()" class="text-xs font-semibold px-4 py-2 rounded-lg border border-slate-700 hover:border-slate-500 text-slate-200 transition">
-            Portal Access
-          </button>
+  <!-- 1. HERO / LANDING SECTION -->
+  <div id="landing-view" class="w-full flex flex-col min-h-screen justify-between">
+    <header class="border-b border-slate-800 bg-slate-950/80 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="Nexus Logo" class="w-8 h-8 rounded-full border border-cyan-500/30">
+        <div>
+          <span class="text-base font-extrabold text-white font-mono">NEXUS<span class="text-cyan-400">.</span></span>
+          <span class="block text-[8px] font-mono tracking-widest text-slate-400">SYSTEMS TECH</span>
         </div>
       </div>
+      <button type="button" onclick="openAuth()" class="px-4 py-1.5 rounded-lg border border-slate-700 hover:border-slate-500 text-xs font-semibold text-slate-200">
+        Portal Access
+      </button>
     </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center text-center px-6 py-20">
-      <div class="mb-6 brand-glow">
-        <img src="logo.png" alt="Nexus Logo" class="w-24 h-24 sm:w-28 sm:h-28 mx-auto object-contain rounded-full border-2 border-cyan-400/40">
-      </div>
+    <main class="flex flex-col items-center justify-center text-center px-4 py-16 my-auto">
+      <img src="logo.png" alt="Nexus Logo" class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full border-2 border-cyan-400/40 mb-6 shadow-lg shadow-cyan-500/20">
 
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-800 bg-slate-900/80 text-xs font-medium text-slate-300 mb-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-800 bg-slate-900 text-xs font-medium text-slate-300 mb-6">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         Nexus Cloud Database // Active
       </div>
-      
-      <h1 class="text-3xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.15]">
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl leading-snug">
         Secure Enterprise <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300">Client & Admin Workspace</span>
       </h1>
-      
-      <p class="mt-5 text-slate-400 max-w-2xl text-sm sm:text-lg">
+
+      <p class="mt-4 text-slate-400 max-w-xl text-sm sm:text-base">
         Manage live workloads, support tickets, and direct administrative controls linked directly to Google Sheets database.
       </p>
-      
+
       <div class="mt-8">
-        <button type="button" onclick="goToAuth()" class="px-8 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm tracking-wide transition shadow-xl shadow-cyan-500/25 cursor-pointer">
+        <button type="button" onclick="openAuth()" class="px-8 py-3.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-sm tracking-wide shadow-xl shadow-cyan-500/25 active:scale-95 transition">
           Open Portal Console →
         </button>
       </div>
     </main>
 
-    <footer class="glass-nav py-6 border-t border-slate-800 text-center text-xs text-slate-500">
-      <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <span>© 2026 Nexus Systems Technologies. All rights reserved.</span>
-      </div>
+    <footer class="py-6 border-t border-slate-800/80 text-center text-xs text-slate-500">
+      © 2026 Nexus Systems Technologies. All rights reserved.
     </footer>
   </div>
 
-  <!-- 2. AUTH VIEW -->
-  <div id="auth-view" class="hidden relative z-20 flex-grow flex items-center justify-center p-4">
-    <div class="w-full max-w-md my-8">
+  <!-- 2. LOGIN / SIGNUP VIEW -->
+  <div id="auth-view" class="hidden min-h-screen w-full flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
       <div class="text-center mb-6">
-        <div class="inline-block mb-3 brand-glow">
-          <img src="logo.png" alt="Nexus Logo" class="w-14 h-14 mx-auto object-contain rounded-full border border-cyan-400/50">
-        </div>
-        <h2 class="text-2xl font-bold tracking-tight text-white">Portal Access Console</h2>
-        <p class="text-xs font-mono text-slate-400 mt-1">// CLOUD DATABASE LINKED</p>
+        <img src="logo.png" alt="Nexus Logo" class="w-14 h-14 mx-auto rounded-full border border-cyan-400/50 mb-2">
+        <h2 class="text-2xl font-bold text-white">Portal Access Console</h2>
+        <p class="text-xs font-mono text-slate-400">// CLOUD DATABASE LINKED</p>
       </div>
 
       <div class="glass-card p-6 sm:p-8 rounded-3xl glow-cyan">
         <div class="flex border-b border-slate-800 mb-6 font-mono text-xs">
-          <button id="tab-login" onclick="toggleAuth('login')" class="w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer">Sign In</button>
-          <button id="tab-signup" onclick="toggleAuth('signup')" class="w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer">Create Account</button>
+          <button id="tab-login" onclick="toggleAuth(true)" class="w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400">Sign In</button>
+          <button id="tab-signup" onclick="toggleAuth(false)" class="w-1/2 pb-3 font-semibold text-slate-500">Create Account</button>
         </div>
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
@@ -108,7 +86,7 @@
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-login-pass" required placeholder="••••••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
-          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition cursor-pointer">Sign In</button>
+          <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm transition">Sign In</button>
         </form>
 
         <!-- Signup Form -->
@@ -129,146 +107,109 @@
             <label class="block text-xs font-medium text-slate-400 mb-1">Password</label>
             <input type="password" id="auth-reg-pass" minlength="4" required placeholder="Minimum 4 characters" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white text-xs sm:text-sm focus:border-cyan-500 focus:outline-none">
           </div>
-
-          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition mt-2 cursor-pointer">Create Account & Get ID</button>
+          <button type="submit" id="signup-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm transition mt-2">Create Account & Get ID</button>
         </form>
 
-        <div class="mt-6 pt-5 border-t border-slate-800 text-center">
-          <button type="button" onclick="goToLanding()" class="text-xs font-mono text-slate-400 hover:text-white transition cursor-pointer">← Return to Website</button>
+        <div class="mt-6 pt-4 border-t border-slate-800 text-center">
+          <button type="button" onclick="openLanding()" class="text-xs font-mono text-slate-400 hover:text-white">← Return to Website</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 3. CLIENT DASHBOARD VIEW -->
-  <div id="dashboard-view" class="hidden relative z-20 flex-grow flex flex-col">
-    <header class="glass-card border-b border-slate-800 px-6 py-4 sticky top-0 z-30">
-      <div class="max-w-7xl mx-auto flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <img src="logo.png" alt="Nexus Logo" class="w-9 h-9 object-contain rounded-full brand-glow border border-cyan-500/30">
-          <div>
-            <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
-            <span class="block text-[10px] font-mono text-emerald-400">● GOOGLE SHEETS CLOUD SYNCED</span>
-          </div>
+  <!-- 3. DASHBOARD VIEW -->
+  <div id="dashboard-view" class="hidden min-h-screen w-full flex-col">
+    <header class="border-b border-slate-800 bg-slate-950 px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="Nexus Logo" class="w-8 h-8 rounded-full border border-cyan-500/30">
+        <div>
+          <span class="text-sm font-bold text-white tracking-wide">NEXUS CONTROL PORTAL</span>
+          <span class="block text-[10px] font-mono text-emerald-400">● GOOGLE SHEETS LIVE</span>
         </div>
-
-        <div class="flex items-center gap-4">
-          <div class="hidden sm:block text-right">
-            <span id="portal-user-name" class="text-xs font-bold text-white"></span>
-            <span id="portal-user-tag" class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold ml-1"></span>
-          </div>
-          <button onclick="handleLogout()" class="px-3.5 py-1.5 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300 transition cursor-pointer">Disconnect</button>
-        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <span id="portal-user-tag" class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold"></span>
+        <button onclick="handleLogout()" class="px-3 py-1 rounded-lg border border-slate-700 hover:bg-rose-950/40 text-xs font-mono text-slate-300">Disconnect</button>
       </div>
     </header>
 
-    <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
-
+    <main class="max-w-5xl mx-auto w-full p-6 space-y-6">
       <!-- GEMINI AI BOX -->
       <div class="glass-card p-6 rounded-2xl border border-cyan-500/40 glow-cyan">
         <div class="flex items-center gap-2 mb-3">
           <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Gemini)</h4>
+          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Gemini 1.5)</h4>
         </div>
-        
-        <div id="ai-chat-output" class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 min-h-[60px] max-h-48 overflow-y-auto mb-3 font-mono">
-          Ask any technical question or request project help here...
+        <div id="ai-chat-output" class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-300 min-h-[60px] max-h-48 overflow-y-auto mb-3 font-mono">
+          Ready to answer your tech queries...
         </div>
-        
         <form onsubmit="handleGeminiQuery(event)" class="flex gap-2">
-          <input type="text" id="ai-input" required placeholder="Ask Gemini AI..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition cursor-pointer">Ask AI</button>
+          <input type="text" id="ai-input" required placeholder="Ask Gemini AI anything..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs">Ask AI</button>
         </form>
       </div>
 
-      <!-- WORKLOAD / PROJECTS -->
+      <!-- WORKLOAD STATUS -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
-        <h3 class="text-base font-bold text-white flex items-center justify-between">
-          <span>🚀 Deploy New Workload / Project</span>
-          <button onclick="refreshCloudData()" class="text-xs font-mono text-cyan-400 hover:underline cursor-pointer">⟳ Sync Data</button>
-        </h3>
-        
-        <form onsubmit="handleCreateWorkload(event)" class="mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <input type="text" id="workload-name" required placeholder="Project Name" class="sm:col-span-2 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none">
-          <select id="workload-status" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-slate-200 focus:outline-none">
-            <option value="Active">Active</option>
-            <option value="Pending">Pending</option>
-            <option value="Completed">Completed</option>
-          </select>
-          <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1">
-            <label class="text-[10px] font-mono text-slate-400">Prog:</label>
-            <input type="range" id="workload-progress" min="0" max="100" value="25" class="w-full accent-cyan-400 cursor-pointer" oninput="document.getElementById('prog-val').innerText = this.value + '%'">
-            <span id="prog-val" class="text-xs font-mono font-bold text-cyan-400 w-9">25%</span>
+        <h3 class="text-sm font-bold text-white mb-4">🚀 Active Workload Status</h3>
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="text-white font-bold">Cloud Infrastructure</span>
+            <span class="text-emerald-400 font-mono">Online 100%</span>
           </div>
-          <input type="text" id="workload-desc" placeholder="Details..." class="sm:col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none">
-          <button type="submit" id="proj-btn" class="py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition cursor-pointer">+ Add to Cloud</button>
-        </form>
-
-        <div class="mt-8 space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-            <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Cloud Projects</span>
-            <span id="workload-count" class="text-xs font-mono text-cyan-400">0 Items</span>
+          <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
+            <div class="h-full bg-cyan-400 w-full"></div>
           </div>
-          <div id="workload-list" class="space-y-3 pt-2"></div>
         </div>
       </div>
-
     </main>
   </div>
 
   <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4pVLFerBrwpj7ZySWw8RWn7mrQgDNoxZcNh_nIXX4-PqeY6xxBSiJyaG9Qi4b2Opd/exec";
     const SESSION_KEY = "nexus_current_session";
-    const MASTER_ADMIN_EMAIL = "vich62097@gmail.com";
 
-    // View Switching Logic
-    function goToLanding() {
-      document.getElementById('landing-view').classList.remove('hidden');
-      document.getElementById('auth-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
+    function openLanding() {
+      document.getElementById('landing-view').style.display = 'flex';
+      document.getElementById('auth-view').style.display = 'none';
+      document.getElementById('dashboard-view').style.display = 'none';
     }
 
-    function goToAuth() {
-      document.getElementById('landing-view').classList.add('hidden');
-      document.getElementById('auth-view').classList.remove('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
+    function openAuth() {
+      document.getElementById('landing-view').style.display = 'none';
+      document.getElementById('auth-view').style.display = 'flex';
+      document.getElementById('dashboard-view').style.display = 'none';
     }
 
-    function goToDashboard(user) {
-      document.getElementById('landing-view').classList.add('hidden');
-      document.getElementById('auth-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.remove('hidden');
-
-      document.getElementById('portal-user-name').innerText = user.name || "Client";
-      document.getElementById('portal-user-tag').innerText = user.idNumber || ("ID: " + user.id);
-      refreshCloudData();
+    function openDashboard(user) {
+      document.getElementById('landing-view').style.display = 'none';
+      document.getElementById('auth-view').style.display = 'none';
+      document.getElementById('dashboard-view').style.display = 'flex';
+      document.getElementById('portal-user-tag').innerText = user.idNumber || user.name || "Client";
     }
 
-    function toggleAuth(mode) {
-      const isLogin = mode === 'login';
+    function toggleAuth(isLogin) {
       document.getElementById('login-form').classList.toggle('hidden', !isLogin);
       document.getElementById('signup-form').classList.toggle('hidden', isLogin);
-      document.getElementById('tab-login').className = isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer" : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer";
-      document.getElementById('tab-signup').className = !isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400 transition cursor-pointer" : "w-1/2 pb-3 font-semibold text-slate-500 hover:text-slate-300 transition cursor-pointer";
+      document.getElementById('tab-login').className = isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400" : "w-1/2 pb-3 font-semibold text-slate-500";
+      document.getElementById('tab-signup').className = !isLogin ? "w-1/2 pb-3 font-semibold text-cyan-400 border-b-2 border-cyan-400" : "w-1/2 pb-3 font-semibold text-slate-500";
     }
 
     function handleLogout() {
       localStorage.removeItem(SESSION_KEY);
-      goToLanding();
+      openLanding();
     }
 
-    // Auto login check
     window.addEventListener("DOMContentLoaded", () => {
       try {
         const active = JSON.parse(localStorage.getItem(SESSION_KEY));
-        if (active) goToDashboard(active);
-        else goToLanding();
-      } catch (e) {
-        goToLanding();
+        if (active) openDashboard(active);
+        else openLanding();
+      } catch(e) {
+        openLanding();
       }
     });
 
-    // API Call Helper
     async function apiPost(payload) {
       const res = await fetch(APPS_SCRIPT_URL, {
         method: "POST",
@@ -278,37 +219,34 @@
       return await res.json();
     }
 
-    // Login
     async function handleAuthLogin(e) {
       e.preventDefault();
-      const enteredId = document.getElementById('auth-login-id').value.trim();
-      const enteredPass = document.getElementById('auth-login-pass').value.trim();
+      const id = document.getElementById('auth-login-id').value.trim();
+      const pass = document.getElementById('auth-login-pass').value.trim();
       const btn = document.getElementById('login-submit-btn');
-      const alertBox = document.getElementById('auth-alert');
-
+      const box = document.getElementById('auth-alert');
       btn.disabled = true; btn.innerText = "Signing in...";
-      alertBox.classList.add('hidden');
+      box.classList.add('hidden');
 
       try {
-        const result = await apiPost({ action: "login", id: enteredId, password: enteredPass });
-        if (result.status === "success") {
-          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
-          goToDashboard(result.user);
+        const res = await apiPost({ action: "login", id, password: pass });
+        if (res.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(res.user));
+          openDashboard(res.user);
         } else {
-          alertBox.innerText = result.message || "Invalid credentials";
-          alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
-          alertBox.classList.remove('hidden');
+          box.innerText = res.message || "Invalid Login";
+          box.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+          box.classList.remove('hidden');
         }
-      } catch (err) {
-        alertBox.innerText = "Error connecting to cloud database";
-        alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
-        alertBox.classList.remove('hidden');
+      } catch(err) {
+        box.innerText = "Connection error";
+        box.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+        box.classList.remove('hidden');
       } finally {
         btn.disabled = false; btn.innerText = "Sign In";
       }
     }
 
-    // Signup
     async function handleAuthSignup(e) {
       e.preventDefault();
       const name = document.getElementById('auth-reg-name').value.trim();
@@ -316,56 +254,54 @@
       const id = document.getElementById('auth-reg-id').value.trim();
       const pass = document.getElementById('auth-reg-pass').value.trim();
       const btn = document.getElementById('signup-submit-btn');
-      const alertBox = document.getElementById('auth-alert');
-
+      const box = document.getElementById('auth-alert');
       btn.disabled = true; btn.innerText = "Creating...";
-      alertBox.classList.add('hidden');
+      box.classList.add('hidden');
 
       try {
-        const result = await apiPost({ action: "signup", name, email, id, password: pass });
-        if (result.status === "success") {
-          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
-          goToDashboard(result.user);
+        const res = await apiPost({ action: "signup", name, email, id, password: pass });
+        if (res.status === "success") {
+          localStorage.setItem(SESSION_KEY, JSON.stringify(res.user));
+          openDashboard(res.user);
         } else {
-          alertBox.innerText = result.message || "Failed";
-          alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
-          alertBox.classList.remove('hidden');
+          box.innerText = res.message || "Signup failed";
+          box.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+          box.classList.remove('hidden');
         }
-      } catch (err) {
-        alertBox.innerText = "Error contacting server";
-        alertBox.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
-        alertBox.classList.remove('hidden');
+      } catch(err) {
+        box.innerText = "Connection error";
+        box.className = "p-3 rounded-xl text-center font-mono text-xs mb-4 bg-rose-950/80 text-rose-300";
+        box.classList.remove('hidden');
       } finally {
         btn.disabled = false; btn.innerText = "Create Account & Get ID";
       }
     }
 
-    // Gemini AI Query
     async function handleGeminiQuery(e) {
       e.preventDefault();
       const input = document.getElementById('ai-input');
       const out = document.getElementById('ai-chat-output');
       const btn = document.getElementById('ai-btn');
       const prompt = input.value.trim();
-
       if (!prompt) return;
 
       btn.disabled = true; btn.innerText = "Thinking...";
-      out.innerHTML = `<span class="text-cyan-400 animate-pulse">Analyzing with Gemini...</span>`;
+      out.innerText = "Gemini is analyzing your request...";
 
       try {
-        const res = await apiPost({ action: "askAI", prompt: prompt });
+        const res = await apiPost({ action: "askAI", prompt });
         if (res && res.reply) {
-          out.innerHTML = `<div class="text-slate-200 leading-relaxed">${res.reply}</div>`;
+          out.innerText = res.reply;
           input.value = "";
         } else {
           out.innerText = "No response from AI.";
         }
-      } catch (err) {
+      } catch(err) {
         out.innerText = "Failed to connect to AI server.";
       } finally {
         btn.disabled = false; btn.innerText = "Ask AI";
       }
     }
-
-    // W
+  </script>
+</body>
+</html>
