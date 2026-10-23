@@ -47,7 +47,7 @@
 
   <canvas id="neural-canvas"></canvas>
 
-  <!-- LANDING PAGE -->
+  <!-- LANDING PAGE VIEW -->
   <div id="landing-view" class="relative z-10 flex flex-col min-h-screen">
     <header class="glass-nav sticky top-0 z-40">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-2">
@@ -69,7 +69,7 @@
       </div>
     </header>
 
-    <main class="flex-grow flex flex-col items-center justify-center text-center px-6 py-16">
+    <main class="flex-grow flex flex-col items-center justify-center text-center px-6 py-20">
       <div class="mb-6 brand-glow">
         <img src="logo.png" alt="Nexus Logo" class="w-24 h-24 sm:w-28 sm:h-28 mx-auto object-contain rounded-full border-2 border-cyan-400/40">
       </div>
@@ -78,12 +78,15 @@
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         Nexus Cloud Database // Active
       </div>
+      
       <h1 class="text-3xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.15]">
         Secure Enterprise <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300">Client & Admin Workspace</span>
       </h1>
+      
       <p class="mt-5 text-slate-400 max-w-2xl text-sm sm:text-lg">
         Manage live workloads, support tickets, and direct administrative controls linked directly to Google Sheets database.
       </p>
+      
       <div class="mt-8">
         <button type="button" onclick="showAuthView()" class="px-8 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-sm tracking-wide transition shadow-xl shadow-brand-500/25">
           Open Portal Console →
@@ -124,7 +127,6 @@
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
-        <!-- LOGIN FORM -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email</label>
@@ -137,7 +139,6 @@
           <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide transition">Sign In</button>
         </form>
 
-        <!-- SIGNUP FORM -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-3 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
@@ -199,6 +200,25 @@
     </header>
 
     <main class="max-w-7xl mx-auto w-full p-6 flex-grow space-y-6">
+
+      <!-- GEMINI AI ASSISTANT BOX -->
+      <div class="glass-card p-6 rounded-2xl border border-cyan-500/40 glow-cyan">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Powered by Gemini)</h4>
+        </div>
+        
+        <div id="ai-chat-output" class="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300 min-h-[60px] max-h-48 overflow-y-auto mb-3 font-mono">
+          Ask any technical question or request project help here...
+        </div>
+        
+        <form onsubmit="handleGeminiQuery(event)" class="flex gap-2">
+          <input type="text" id="ai-input" required placeholder="Type your question to Gemini AI..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition">Ask AI</button>
+        </form>
+      </div>
+
+      <!-- WORKLOAD / PROJECTS -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <h3 class="text-base font-bold text-white flex items-center justify-between">
           <span>🚀 Deploy New Workload / Project (Sheet3 Cloud)</span>
@@ -230,10 +250,11 @@
         </div>
       </div>
 
+      <!-- SUPPORT TICKETS -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="glass-card p-6 rounded-2xl border border-slate-800 md:col-span-1">
           <h4 class="text-sm font-bold text-white mb-2">🎫 Open Support Ticket</h4>
-          <p class="text-xs text-slate-400 mb-4">Direct dispatch + instant Admin Email notification.</p>
+          <p class="text-xs text-slate-400 mb-4">Direct dispatch to cloud database.</p>
           
           <form onsubmit="handleSupportTicket(event)" class="space-y-3">
             <input type="text" id="ticket-subject" required placeholder="Subject" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
@@ -244,7 +265,7 @@
             </select>
             <textarea id="ticket-msg" rows="3" required placeholder="Describe issue..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"></textarea>
             <button type="submit" id="ticket-btn" class="w-full py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs transition">Dispatch Ticket</button>
-            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged & Email sent!</div>
+            <div id="ticket-status" class="hidden text-center text-[11px] font-mono text-emerald-400 mt-2">✓ Ticket logged successfully!</div>
           </form>
         </div>
 
@@ -296,545 +317,4 @@
 
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-          <h3 class="text-sm font-bold text-white">🎫 All Client Tickets (Direct Reply & Status Control)</h3>
-          <span class="text-xs font-mono text-slate-400">Sheet2 Live</span>
-        </div>
-        <div id="adm-tickets-list" class="space-y-3">
-          <div class="text-xs font-mono text-slate-500 text-center py-6">Loading tickets...</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="glass-card p-6 rounded-2xl border border-slate-800">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-            <h3 class="text-sm font-bold text-white">👥 Registered Clients</h3>
-            <span class="text-xs font-mono text-slate-400">Sheet1</span>
-          </div>
-          <div id="adm-users-list" class="space-y-2 max-h-80 overflow-y-auto">
-            <div class="text-xs font-mono text-slate-500 text-center py-6">Loading clients...</div>
-          </div>
-        </div>
-
-        <div class="glass-card p-6 rounded-2xl border border-slate-800">
-          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-            <h3 class="text-sm font-bold text-white">🚀 All Client Workloads / Projects</h3>
-            <span class="text-xs font-mono text-slate-400">Sheet3</span>
-          </div>
-          <div id="adm-projects-list" class="space-y-2 max-h-80 overflow-y-auto">
-            <div class="text-xs font-mono text-slate-500 text-center py-6">Loading projects...</div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!-- PROFILE & PASSWORD MODAL -->
-  <div id="profile-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass-card max-w-md w-full p-6 rounded-3xl border border-cyan-500/30 bg-slate-950">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-base font-bold text-white">Change Password</h3>
-        <button onclick="toggleProfileModal()" class="text-slate-400 hover:text-white font-mono text-xs">✕ CLOSE</button>
-      </div>
-      <form onsubmit="handleChangePassword(event)" class="space-y-3">
-        <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1">Old Password</label>
-          <input type="password" id="old-pass" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1">New Password</label>
-          <input type="password" id="new-pass" minlength="4" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
-        </div>
-        <button type="submit" id="pass-btn" class="w-full py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs transition">Update Password</button>
-        <div id="pass-msg" class="hidden text-center text-xs font-mono mt-2"></div>
-      </form>
-    </div>
-  </div>
-
-  <!-- LEGAL MODAL -->
-  <div id="legal-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card max-w-2xl w-full p-6 sm:p-8 rounded-3xl border border-slate-700 bg-slate-950 max-h-[85vh] flex flex-col">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
-        <h3 id="legal-modal-title" class="text-lg font-bold text-white">Terms of Service</h3>
-        <button onclick="closeLegalModal()" class="text-slate-400 hover:text-white font-mono text-xs">✕ CLOSE</button>
-      </div>
-      <div id="legal-modal-content" class="text-xs text-slate-300 space-y-4 overflow-y-auto pr-2 leading-relaxed font-sans"></div>
-      <div class="mt-6 pt-4 border-t border-slate-800 text-right">
-        <button onclick="closeLegalModal()" class="px-5 py-2 rounded-xl bg-brand-500 hover:bg-brand-400 text-slate-950 font-bold text-xs transition">Understood</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVIIQIuO9dM8L9M2Q_j-bxhtsmqUMCIwymDfhPGvV97fqtmMTjBAPWtvCeoKwVp6mkTA/exec";
-    const SESSION_KEY = "nexus_current_session";
-    const MASTER_ADMIN_EMAIL = "vich62097@gmail.com";
-
-    // ZERO-CORS API CALLER: uses hidden Form POST + window.name or URL params fetch
-    async function apiPost(payload) {
-      // Direct Master Admin bypass locally to guarantee 0 delay if admin credentials match
-      if (payload.action === "login") {
-        const idLower = payload.id.toString().trim().toLowerCase();
-        const pass = payload.password.toString().trim();
-        if (idLower === MASTER_ADMIN_EMAIL.toLowerCase() && pass === MASTER_ADMIN_EMAIL) {
-          return {
-            status: "success",
-            isAdmin: true,
-            user: { idNumber: "NX-ADMIN", name: "Master Admin", email: MASTER_ADMIN_EMAIL, id: MASTER_ADMIN_EMAIL }
-          };
-        }
-      }
-
-      // Safe fetch using text/plain (avoids CORS preflight)
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 12000);
-        const res = await fetch(APPS_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload),
-          signal: controller.signal
-        });
-        clearTimeout(timeoutId);
-        return await res.json();
-      } catch (err) {
-        console.warn("Fetch encounter redirect, attempting fallback parse:", err);
-        throw err;
-      }
-    }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const activeSession = JSON.parse(localStorage.getItem(SESSION_KEY));
-      if (activeSession) {
-        if (activeSession.isAdmin) showAdminView(activeSession);
-        else showDashboardView(activeSession);
-      } else {
-        showLandingView();
-      }
-    });
-
-    function showLandingView() {
-      document.getElementById('landing-view').classList.remove('hidden');
-      document.getElementById('auth-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
-      document.getElementById('admin-view').classList.add('hidden');
-    }
-
-    function showAuthView() {
-      document.getElementById('landing-view').classList.add('hidden');
-      document.getElementById('auth-view').classList.remove('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
-      document.getElementById('admin-view').classList.add('hidden');
-    }
-
-    function showDashboardView(user) {
-      document.getElementById('landing-view').classList.add('hidden');
-      document.getElementById('auth-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.remove('hidden');
-      document.getElementById('admin-view').classList.add('hidden');
-
-      document.getElementById('portal-user-name').innerText = user.name;
-      document.getElementById('portal-user-tag').innerText = user.idNumber || ("ID: " + user.id);
-
-      refreshCloudData();
-    }
-
-    function showAdminView(user) {
-      document.getElementById('landing-view').classList.add('hidden');
-      document.getElementById('auth-view').classList.add('hidden');
-      document.getElementById('dashboard-view').classList.add('hidden');
-      document.getElementById('admin-view').classList.remove('hidden');
-
-      loadAdminPanelData();
-    }
-
-    function toggleAuthMode(mode) {
-      const isLogin = mode === 'login';
-      document.getElementById('login-form').classList.toggle('hidden', !isLogin);
-      document.getElementById('signup-form').classList.toggle('hidden', isLogin);
-    }
-
-    function showAuthAlert(msg, isSuccess = false) {
-      const alertBox = document.getElementById('auth-alert');
-      alertBox.className = `p-3 rounded-xl text-center font-mono text-xs mb-4 ${isSuccess ? 'bg-emerald-950/80 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}`;
-      alertBox.innerText = msg;
-      alertBox.classList.remove('hidden');
-    }
-
-    async function handleAuthLogin(e) {
-      e.preventDefault();
-      const enteredId = document.getElementById('auth-login-id').value.trim();
-      const enteredPass = document.getElementById('auth-login-pass').value.trim();
-      const btn = document.getElementById('login-submit-btn');
-      btn.disabled = true; btn.innerText = "Authenticating...";
-
-      try {
-        const result = await apiPost({ action: "login", id: enteredId, password: enteredPass });
-        if (result.status === "success") {
-          const userSession = { ...result.user, isAdmin: !!result.isAdmin };
-          localStorage.setItem(SESSION_KEY, JSON.stringify(userSession));
-          if (userSession.isAdmin) showAdminView(userSession);
-          else showDashboardView(userSession);
-        } else {
-          showAuthAlert(result.message || "Invalid credentials.");
-        }
-      } catch (err) {
-        showAuthAlert("Backend connection busy. Retrying...");
-      } finally {
-        btn.disabled = false; btn.innerText = "Sign In";
-      }
-    }
-
-    async function handleAuthSignup(e) {
-      e.preventDefault();
-      const name = document.getElementById('auth-reg-name').value.trim();
-      const email = document.getElementById('auth-reg-email').value.trim();
-      const id = document.getElementById('auth-reg-id').value.trim();
-      const pass = document.getElementById('auth-reg-pass').value.trim();
-      const agreed = document.getElementById('auth-reg-agree').checked;
-
-      if (!agreed) {
-        showAuthAlert("Please accept the Terms of Service to create an account.");
-        return;
-      }
-
-      const btn = document.getElementById('signup-submit-btn');
-      btn.disabled = true; btn.innerText = "Creating...";
-
-      try {
-        const result = await apiPost({ action: "signup", name, email, id, password: pass });
-        if (result.status === "success") {
-          localStorage.setItem(SESSION_KEY, JSON.stringify(result.user));
-          showDashboardView(result.user);
-        } else {
-          showAuthAlert(result.message || "Signup failed.");
-        }
-      } catch (err) {
-        showAuthAlert("Error saving to Sheets.");
-      } finally {
-        btn.disabled = false; btn.innerText = "Create Account & Get ID";
-      }
-    }
-
-    function handleLogout() {
-      localStorage.removeItem(SESSION_KEY);
-      showLandingView();
-    }
-
-    const LEGAL_TEXTS = {
-      terms: {
-        title: "Terms of Service // Nexus Systems",
-        body: `
-          <p><strong>1. Acceptance of Terms:</strong> By accessing or using the Nexus Systems portal, you agree to comply with and be bound by these Terms of Service. If you do not agree, do not access or use the platform.</p>
-          <p><strong>2. User Accounts & Security:</strong> You are responsible for safeguarding the credentials used to access your account. Any activity initiated from your assigned Member ID (NX-ID) is your sole responsibility.</p>
-          <p><strong>3. Acceptable Use:</strong> Users shall not attempt unauthorized access to restricted endpoints, reverse-engineer proprietary algorithms, or deploy unauthorized workloads through cloud sheets.</p>
-          <p><strong>4. Administrative Rights:</strong> Nexus Systems Master Administration reserves the right to suspend or terminate accounts, update project statuses, and resolve service tickets in accordance with operational requirements.</p>
-        `
-      },
-      privacy: {
-        title: "Privacy Policy // Data Protection",
-        body: `
-          <p><strong>1. Data Collection:</strong> We collect personal identifiers including your Full Name, Email Address, and generated Member IDs exclusively for authentication and ticketing services.</p>
-          <p><strong>2. Google Sheets Integration:</strong> Your project data, lifecycle statuses, and support requests are stored on secure Google Cloud Infrastructure managed through encrypted API webhooks.</p>
-          <p><strong>3. Communication:</strong> Ticket alerts, critical support resolutions, and system notifications may be dispatched directly to your registered email address.</p>
-          <p><strong>4. Third-Party Sharing:</strong> We do not sell, rent, or distribute client data to external marketing vendors under any circumstances.</p>
-        `
-      },
-      sla: {
-        title: "Service Level Agreement (SLA)",
-        body: `
-          <p><strong>1. System Availability:</strong> The Nexus Systems portal targets 99.8% uptime backed by Google Cloud App Script servers and GitHub Pages edge network.</p>
-          <p><strong>2. Ticket Response Times:</strong> Critical priority tickets are reviewed by Master Administration within 4 hours. High and Normal tickets receive responses within 24-48 business hours.</p>
-          <p><strong>3. Maintenance:</strong> Routine updates are executed without disrupting active client sessions whenever possible.</p>
-        `
-      }
-    };
-
-    function openLegalModal(type) {
-      const data = LEGAL_TEXTS[type] || LEGAL_TEXTS.terms;
-      document.getElementById('legal-modal-title').innerText = data.title;
-      document.getElementById('legal-modal-content').innerHTML = data.body;
-      document.getElementById('legal-modal').classList.remove('hidden');
-    }
-
-    function closeLegalModal() {
-      document.getElementById('legal-modal').classList.add('hidden');
-    }
-
-    async function loadAdminPanelData() {
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      try {
-        const result = await apiPost({ action: "getAdminData", adminId: session.id || MASTER_ADMIN_EMAIL });
-        if (result && result.status === "success") {
-          renderAdminUsers(result.users || []);
-          renderAdminTickets(result.tickets || []);
-          renderAdminProjects(result.projects || []);
-        }
-      } catch (err) {
-        console.warn("Admin fetch error", err);
-      }
-    }
-
-    function renderAdminUsers(users) {
-      document.getElementById('adm-client-count').innerText = users.length;
-      const container = document.getElementById('adm-users-list');
-      if (users.length === 0) {
-        container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-4">No registered clients yet.</div>`;
-        return;
-      }
-      container.innerHTML = users.map(u => `
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex items-center justify-between">
-          <div>
-            <span class="font-bold text-white">${u.name}</span>
-            <div class="text-[11px] font-mono text-slate-400">${u.email} // ID: ${u.userId}</div>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/30">${u.idNumber}</span>
-        </div>
-      `).join('');
-    }
-
-    function renderAdminTickets(tickets) {
-      document.getElementById('adm-ticket-count').innerText = tickets.length;
-      const container = document.getElementById('adm-tickets-list');
-      if (tickets.length === 0) {
-        container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-4">No support tickets found in Sheet2.</div>`;
-        return;
-      }
-      container.innerHTML = tickets.map(t => `
-        <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <span class="text-xs font-bold text-white">${t.subject}</span>
-              <span class="text-[10px] font-mono text-slate-400 ml-2">User: ${t.userId}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded ${t.priority === 'Critical' ? 'bg-rose-950 text-rose-300' : 'bg-slate-800 text-slate-300'}">${t.priority}</span>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded ${t.status === 'Resolved' ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-amber-950 text-amber-300 border border-amber-500/30'}">${t.status}</span>
-            </div>
-          </div>
-          <p class="text-slate-300 text-xs bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">${t.message}</p>
-          <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
-            <input type="text" id="reply-input-${t.rowIndex}" value="${t.reply || ''}" placeholder="Type Admin Reply..." class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none">
-            <select id="status-select-${t.rowIndex}" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-200">
-              <option value="Pending" ${t.status === 'Pending' ? 'selected' : ''}>Pending</option>
-              <option value="In Progress" ${t.status === 'In Progress' ? 'selected' : ''}>In Progress</option>
-              <option value="Resolved" ${t.status === 'Resolved' ? 'selected' : ''}>Resolved</option>
-            </select>
-            <button onclick="submitAdminReply(${t.rowIndex})" class="w-full sm:w-auto px-4 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition">Save</button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    async function submitAdminReply(rowIndex) {
-      const reply = document.getElementById(`reply-input-${rowIndex}`).value.trim();
-      const status = document.getElementById(`status-select-${rowIndex}`).value;
-      try {
-        await apiPost({ action: "adminReplyTicket", rowIndex, reply, status });
-        loadAdminPanelData();
-      } catch (err) {
-        alert("Failed to save reply");
-      }
-    }
-
-    function renderAdminProjects(projects) {
-      document.getElementById('adm-project-count').innerText = projects.length;
-      const container = document.getElementById('adm-projects-list');
-      if (projects.length === 0) {
-        container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-4">No projects found in Sheet3.</div>`;
-        return;
-      }
-      container.innerHTML = projects.map(p => `
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-white">${p.name} <span class="font-mono text-[10px] text-slate-400">(${p.userId})</span></span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300">${p.status}</span>
-          </div>
-          <div class="flex justify-between text-[10px] font-mono text-slate-400">
-            <span>${p.details || 'No details'}</span>
-            <span class="text-cyan-400 font-bold">${p.progress}%</span>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    async function refreshCloudData() {
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      try {
-        const result = await apiPost({ action: "getUserData", userId: session.id });
-        if (result && result.status === "success") {
-          renderWorkloads(result.projects || []);
-          renderTickets(result.tickets || []);
-        }
-      } catch (err) {
-        console.warn("Sync failed", err);
-      }
-    }
-
-    async function handleCreateWorkload(e) {
-      e.preventDefault();
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      const name = document.getElementById('workload-name').value.trim();
-      const status = document.getElementById('workload-status').value;
-      const progress = parseInt(document.getElementById('workload-progress').value) || 0;
-      const desc = document.getElementById('workload-desc').value.trim();
-      const btn = document.getElementById('proj-btn');
-
-      btn.disabled = true; btn.innerText = "Saving to Cloud...";
-
-      try {
-        await apiPost({
-          action: "saveProject",
-          projectId: "PRJ-" + Date.now(),
-          userId: session.id,
-          name, status,
-          progress: status === "Completed" ? 100 : progress,
-          desc: desc || "Infrastructure instance active."
-        });
-        document.getElementById('workload-name').value = "";
-        document.getElementById('workload-desc').value = "";
-        refreshCloudData();
-      } finally {
-        btn.disabled = false; btn.innerText = "+ Add to Cloud";
-      }
-    }
-
-    async function updateCloudProgress(projId, prog) {
-      try {
-        await apiPost({ action: "updateProgress", projectId: projId, progress: prog });
-        refreshCloudData();
-      } catch (err) {}
-    }
-
-    function renderWorkloads(list) {
-      const container = document.getElementById('workload-list');
-      document.getElementById('workload-count').innerText = `${list.length} Items`;
-      if (list.length === 0) {
-        container.innerHTML = `<div class="p-6 rounded-xl border border-slate-800 text-center text-slate-500 font-mono text-xs">No projects in Sheet3 yet.</div>`;
-        return;
-      }
-      container.innerHTML = list.map(item => `
-        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-white">${item.name}</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded ${item.status === 'Completed' ? 'bg-sky-950 text-cyan-400' : 'bg-emerald-950 text-emerald-400'}">${item.status}</span>
-          </div>
-          <div>
-            <div class="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
-              <span>Lifecycle:</span><span class="text-cyan-400 font-bold">${item.progress}%</span>
-            </div>
-            <div class="w-full bg-slate-950 rounded-full h-2 border border-slate-800 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-sky-500 to-cyan-400" style="width: ${item.progress}%"></div>
-            </div>
-            <div class="flex items-center justify-between mt-2 pt-1 border-t border-slate-800/40 text-[10px] font-mono">
-              <span class="text-slate-500">ID: ${item.id}</span>
-              <div class="flex items-center gap-1.5">
-                <button onclick="updateCloudProgress('${item.id}', Math.max(0, ${item.progress - 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">-10%</button>
-                <button onclick="updateCloudProgress('${item.id}', Math.min(100, ${item.progress + 10}))" class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">+10%</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    async function handleSupportTicket(e) {
-      e.preventDefault();
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      const subject = document.getElementById('ticket-subject').value.trim();
-      const priority = document.getElementById('ticket-priority').value;
-      const message = document.getElementById('ticket-msg').value.trim();
-      const btn = document.getElementById('ticket-btn');
-      const statusBox = document.getElementById('ticket-status');
-
-      btn.disabled = true; btn.innerText = "Logging ticket...";
-
-      try {
-        await apiPost({ action: "ticket", userId: session.id, subject, priority, message });
-        statusBox.classList.remove('hidden');
-        setTimeout(() => statusBox.classList.add('hidden'), 3500);
-        document.getElementById('ticket-subject').value = "";
-        document.getElementById('ticket-msg').value = "";
-        refreshCloudData();
-      } finally {
-        btn.disabled = false; btn.innerText = "Dispatch Ticket";
-      }
-    }
-
-    function renderTickets(tickets) {
-      const container = document.getElementById('tickets-list');
-      document.getElementById('ticket-count').innerText = `${tickets.length} Active`;
-      if (tickets.length === 0) {
-        container.innerHTML = `<div class="text-xs font-mono text-slate-500 text-center py-8">No open support tickets.</div>`;
-        return;
-      }
-      container.innerHTML = tickets.map(t => `
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs space-y-1.5">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-white">${t.subject}</span>
-            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded ${t.status === 'Resolved' ? 'bg-emerald-950 text-emerald-300 border border-emerald-500/30' : 'bg-amber-950 text-amber-300 border border-amber-500/30'}">${t.status}</span>
-          </div>
-          <p class="text-slate-400 text-[11px]">${t.message}</p>
-          ${t.reply ? `
-            <div class="p-2 rounded-lg bg-sky-950/40 border border-sky-500/30 text-[11px] text-cyan-300">
-              <strong class="font-mono text-cyan-400">Admin Reply:</strong> ${t.reply}
-            </div>
-          ` : ''}
-          <div class="text-[9px] font-mono text-slate-500 text-right">${t.date}</div>
-        </div>
-      `).join('');
-    }
-
-    function toggleProfileModal() {
-      document.getElementById('profile-modal').classList.toggle('hidden');
-      document.getElementById('pass-msg').classList.add('hidden');
-    }
-
-    async function handleChangePassword(e) {
-      e.preventDefault();
-      const session = JSON.parse(localStorage.getItem(SESSION_KEY));
-      const oldPass = document.getElementById('old-pass').value.trim();
-      const newPass = document.getElementById('new-pass').value.trim();
-      const btn = document.getElementById('pass-btn');
-      const msgBox = document.getElementById('pass-msg');
-
-      btn.disabled = true; btn.innerText = "Updating...";
-
-      try {
-        const result = await apiPost({ action: "changePassword", userId: session.id, oldPassword: oldPass, newPassword: newPass });
-        msgBox.className = `text-center text-xs font-mono mt-2 ${result.status === 'success' ? 'text-emerald-400' : 'text-rose-400'}`;
-        msgBox.innerText = result.message;
-        msgBox.classList.remove('hidden');
-        if (result.status === 'success') {
-          document.getElementById('old-pass').value = "";
-          document.getElementById('new-pass').value = "";
-          setTimeout(toggleProfileModal, 2000);
-        }
-      } finally {
-        btn.disabled = false; btn.innerText = "Update Password";
-      }
-    }
-
-    const canvas = document.getElementById('neural-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, particles = [];
-    function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
-    for (let i = 0; i < 30; i++) {
-      particles.push({ x: Math.random() * width, y: Math.random() * height, vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4, r: 1.5 });
-    }
-    function render() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)'; ctx.fill();
-      });
-      requestAnimationFrame(render);
-    }
-    render();
-  </script>
-</body>
-</html>
+       
