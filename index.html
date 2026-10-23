@@ -16,7 +16,7 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
 
-  <!-- 1. HERO / LANDING SECTION -->
+  <!-- LANDING SECTION -->
   <div id="landing-view" class="w-full flex flex-col min-h-screen justify-between">
     <header class="border-b border-slate-800 bg-slate-950/80 px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -43,7 +43,7 @@
         Secure Enterprise <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-300">Client & Admin Workspace</span>
       </h1>
 
-      <p class="mt-4 text-slate-400 max-w-xl text-sm sm:text-base">
+      <p class="mt-4 text-slate-400 max-w-xl text-sm sm:base">
         Manage live workloads, support tickets, and direct administrative controls linked directly to Google Sheets database.
       </p>
 
@@ -59,7 +59,7 @@
     </footer>
   </div>
 
-  <!-- 2. LOGIN / SIGNUP VIEW -->
+  <!-- AUTH VIEW -->
   <div id="auth-view" class="hidden min-h-screen w-full flex items-center justify-center p-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-6">
@@ -76,7 +76,6 @@
 
         <div id="auth-alert" class="hidden p-3 rounded-xl text-center font-mono text-xs mb-4"></div>
 
-        <!-- Login Form -->
         <form id="login-form" onsubmit="handleAuthLogin(event)" class="space-y-4">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">User ID / Email</label>
@@ -89,7 +88,6 @@
           <button type="submit" id="login-submit-btn" class="w-full py-3 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs sm:text-sm transition">Sign In</button>
         </form>
 
-        <!-- Signup Form -->
         <form id="signup-form" onsubmit="handleAuthSignup(event)" class="space-y-3 hidden">
           <div>
             <label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label>
@@ -117,7 +115,7 @@
     </div>
   </div>
 
-  <!-- 3. DASHBOARD VIEW -->
+  <!-- DASHBOARD VIEW -->
   <div id="dashboard-view" class="hidden min-h-screen w-full flex-col">
     <header class="border-b border-slate-800 bg-slate-950 px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -134,21 +132,6 @@
     </header>
 
     <main class="max-w-5xl mx-auto w-full p-6 space-y-6">
-      <!-- GEMINI AI BOX -->
-      <div class="glass-card p-6 rounded-2xl border border-cyan-500/40 glow-cyan">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          <h4 class="text-sm font-bold text-white font-mono">⚡ NEXUS AI ASSISTANT (Gemini 1.5)</h4>
-        </div>
-        <div id="ai-chat-output" class="p-3.5 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-300 min-h-[60px] max-h-48 overflow-y-auto mb-3 font-mono">
-          Ready to answer your tech queries...
-        </div>
-        <form onsubmit="handleGeminiQuery(event)" class="flex gap-2">
-          <input type="text" id="ai-input" required placeholder="Ask Gemini AI anything..." class="flex-grow bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-          <button type="submit" id="ai-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-bold text-xs">Ask AI</button>
-        </form>
-      </div>
-
       <!-- WORKLOAD STATUS -->
       <div class="glass-card p-6 rounded-2xl border border-slate-800">
         <h3 class="text-sm font-bold text-white mb-4">🚀 Active Workload Status</h3>
@@ -168,6 +151,7 @@
   <script>
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4pVLFerBrwpj7ZySWw8RWn7mrQgDNoxZcNh_nIXX4-PqeY6xxBSiJyaG9Qi4b2Opd/exec";
     const SESSION_KEY = "nexus_current_session";
+    const MASTER_ADMIN_EMAIL = "vich62097@gmail.com";
 
     function openLanding() {
       document.getElementById('landing-view').style.display = 'flex';
@@ -274,32 +258,6 @@
         box.classList.remove('hidden');
       } finally {
         btn.disabled = false; btn.innerText = "Create Account & Get ID";
-      }
-    }
-
-    async function handleGeminiQuery(e) {
-      e.preventDefault();
-      const input = document.getElementById('ai-input');
-      const out = document.getElementById('ai-chat-output');
-      const btn = document.getElementById('ai-btn');
-      const prompt = input.value.trim();
-      if (!prompt) return;
-
-      btn.disabled = true; btn.innerText = "Thinking...";
-      out.innerText = "Gemini is analyzing your request...";
-
-      try {
-        const res = await apiPost({ action: "askAI", prompt });
-        if (res && res.reply) {
-          out.innerText = res.reply;
-          input.value = "";
-        } else {
-          out.innerText = "No response from AI.";
-        }
-      } catch(err) {
-        out.innerText = "Failed to connect to AI server.";
-      } finally {
-        btn.disabled = false; btn.innerText = "Ask AI";
       }
     }
   </script>
